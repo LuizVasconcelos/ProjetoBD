@@ -29,7 +29,7 @@ CREATE TABLE funcao(
 
 
 CREATE TABLE funcionario(
-	cpf INT PRIMARY KEY,
+	cpf BIGINT PRIMARY KEY,
     nome VARCHAR(100),
     salario FLOAT,
     senha VARCHAR(20),
@@ -40,7 +40,7 @@ CREATE TABLE funcionario(
 
 
 CREATE TABLE telefone_funcionario(
-	cpf INT,
+	cpf BIGINT,
 	numero INT,
     PRIMARY KEY (cpf, numero),
 	FOREIGN KEY (cpf) REFERENCES funcionario(cpf)
@@ -49,14 +49,14 @@ CREATE TABLE telefone_funcionario(
 
 
 CREATE TABLE fornecedor(
-	cnpj INT PRIMARY KEY,
+	cnpj BIGINT PRIMARY KEY,
     nome VARCHAR(100)
 );
 
 
 
 CREATE TABLE telefone_fornecedor(
-	cnpj INT,
+	cnpj BIGINT,
 	numero INT,
     PRIMARY KEY (cnpj, numero),
 	FOREIGN KEY (cnpj) REFERENCES fornecedor(cnpj)
@@ -76,7 +76,7 @@ CREATE TABLE produto_estoque(
 
 CREATE TABLE fornecedor_produto(
 	id INT,
-    cnpj INT,
+    cnpj BIGINT,
     PRIMARY KEY (id, cnpj),
     FOREIGN KEY (cnpj) REFERENCES fornecedor(cnpj),
     FOREIGN KEY (id) REFERENCES produto_estoque(id)
@@ -90,7 +90,7 @@ CREATE TABLE movimentacao(
 	valor FLOAT,
 	tipo ENUM('c','v'),
 	data_movimentacao DATE,
-	cpf INT,
+	cpf BIGINT,
 	FOREIGN KEY (cpf) REFERENCES funcionario(cpf)
 );
 
