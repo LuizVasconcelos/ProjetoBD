@@ -1,6 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -25,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | RESERVED ROUTES
 | -------------------------------------------------------------------------
 |
-| There are three reserved routes:
+| There area two reserved routes:
 |
 |	$route['default_controller'] = 'welcome';
 |
@@ -35,20 +33,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 |	$route['404_override'] = 'errors/page_missing';
 |
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
+| This route will tell the Router what URI segments to use if those provided
+| in the URL cannot be matched to a valid route.
 |
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'home';
-$route['404_override'] = '404';
-$route['translate_uri_dashes'] = FALSE;
+$route['default_controller'] = 'user/index';
+$route['404_override'] = '';
+
+/*admin*/
+$route['admin'] = 'user/index';
+$route['admin/signup'] = 'user/signup';
+$route['admin/create_member'] = 'user/create_member';
+$route['admin/login'] = 'user/index';
+$route['admin/logout'] = 'user/logout';
+$route['admin/login/validate_credentials'] = 'user/validate_credentials';
+
+$route['admin/products'] = 'admin_products/index';
+$route['admin/products/add'] = 'admin_products/add';
+$route['admin/products/update'] = 'admin_products/update';
+$route['admin/products/update/(:any)'] = 'admin_products/update/$1';
+$route['admin/products/delete/(:any)'] = 'admin_products/delete/$1';
+$route['admin/products/(:any)'] = 'admin_products/index/$1'; //$1 = page number
+
+$route['admin/manufacturers'] = 'admin_manufacturers/index';
+$route['admin/manufacturers/add'] = 'admin_manufacturers/add';
+$route['admin/manufacturers/update'] = 'admin_manufacturers/update';
+$route['admin/manufacturers/update/(:any)'] = 'admin_manufacturers/update/$1';
+$route['admin/manufacturers/delete/(:any)'] = 'admin_manufacturers/delete/$1';
+$route['admin/manufacturers/(:any)'] = 'admin_manufacturers/index/$1'; //$1 = page number
+
+
+
+/* End of file routes.php */
+/* Location: ./application/config/routes.php */
