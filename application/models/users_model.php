@@ -14,13 +14,20 @@ class Users_model extends CI_Model {
 		$this->db->where('senha', $password);
 		$query = $this->db->get('funcionario');
 
-        echo "LOL " . $query->num_rows . " " . $password;
-
 		if($query->num_rows == 1)
 		{
 			return true;
 		}		
 	}
+
+    function check_manager($user_name)
+    {
+        $this->db->where('cpf', $user_name);
+        $this->db->where('funcao', 'gerente');
+        $query = $this->db->get('funcionario');
+
+        return $query->num_rows > 0;
+    }
 
     /**
     * Serialize the session data stored in the database, 

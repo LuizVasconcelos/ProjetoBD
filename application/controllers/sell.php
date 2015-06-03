@@ -1,5 +1,9 @@
 <?php
-class Admin_products extends CI_Controller {
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+class Sell extends CI_Controller {
  
     /**
     * Responsable for auto load the model
@@ -8,12 +12,13 @@ class Admin_products extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('products_model');
-        $this->load->model('manufacturers_model');
+        //$this->load->model('reports');
 
-        if(!$this->session->userdata('is_logged_in')){
-            redirect('admin/login');
-        }
+        if (!$this->session->userdata('is_logged_in'))
+            redirect('login');
+
+        if (!$this->session->userdata('is_manager'))
+            redirect('login');
     }
  
     /**
@@ -31,7 +36,7 @@ class Admin_products extends CI_Controller {
 
         //pagination settings
         $config['per_page'] = 5;
-        $config['base_url'] = base_url().'admin/products';
+        $config['base_url'] = base_url().'products';
         $config['use_page_numbers'] = TRUE;
         $config['num_links'] = 20;
         $config['full_tag_open'] = '<ul>';
@@ -144,10 +149,10 @@ class Admin_products extends CI_Controller {
             $data['order'] = 'id';
 
             //fetch sql data into arrays
-            $data['manufactures'] = $this->manufacturers_model->get_manufacturers();
-            $data['count_products']= $this->products_model->count_products();
-            $data['products'] = $this->products_model->get_products('', '', '', $order_type, $config['per_page'],$limit_end);        
-            $config['total_rows'] = $data['count_products'];
+            //$data['manufactures'] = $this->manufacturers_model->get_manufacturers();
+            //$data['count_products']= $this->products_model->count_products();
+            //$data['products'] = $this->products_model->get_products('', '', '', $order_type, $config['per_page'],$limit_end);        
+            //$config['total_rows'] = $data['count_products'];
 
         }//!isset($manufacture_id) && !isset($search_string) && !isset($order)
 
@@ -155,7 +160,7 @@ class Admin_products extends CI_Controller {
         $this->pagination->initialize($config);   
 
         //load the view
-        $data['main_content'] = 'admin/products/list';
+        $data['main_content'] = 'products/list';
         $this->load->view('includes/template', $data);  
 
     }//index
@@ -197,7 +202,7 @@ class Admin_products extends CI_Controller {
         //fetch manufactures data to populate the select field
         $data['manufactures'] = $this->manufacturers_model->get_manufacturers();
         //load the view
-        $data['main_content'] = 'admin/products/add';
+        $data['main_content'] = 'products/add';
         $this->load->view('includes/template', $data);  
     }       
 
@@ -237,7 +242,7 @@ class Admin_products extends CI_Controller {
                 }else{
                     $this->session->set_flashdata('flash_message', 'not_updated');
                 }
-                redirect('admin/products/update/'.$id.'');
+                redirect('products/update/'.$id.'');
 
             }//validation run
 
@@ -251,7 +256,7 @@ class Admin_products extends CI_Controller {
         //fetch manufactures data to populate the select field
         $data['manufactures'] = $this->manufacturers_model->get_manufacturers();
         //load the view
-        $data['main_content'] = 'admin/products/edit';
+        $data['main_content'] = 'products/edit';
         $this->load->view('includes/template', $data);            
 
     }//update
@@ -265,7 +270,7 @@ class Admin_products extends CI_Controller {
         //product id 
         $id = $this->uri->segment(4);
         $this->products_model->delete_product($id);
-        redirect('admin/products');
+        redirect('products');
     }//edit
 
 }

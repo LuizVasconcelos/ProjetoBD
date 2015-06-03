@@ -9,11 +9,15 @@ class User extends CI_Controller {
     */	
 	function index()
 	{
-		if($this->session->userdata('is_logged_in')){
-			redirect('admin/products');
-        }else{
-        	$this->load->view('admin/login');	
+        if ($this->session->userdata('is_logged_in'))
+        {
+            if ($this->session->userdata('is_manager'))
+                redirect('reports');
+            else
+                redirect('sell');
         }
+        else
+        	$this->load->view('login');	
 	}
 
     /**
@@ -41,17 +45,23 @@ class User extends CI_Controller {
 		
 		if($is_valid)
 		{
+            $var = $this->Users_model->check_manager($user_name);
 			$data = array(
 				'user_name' => $user_name,
-				'is_logged_in' => true
+                'is_logged_in' => true,
+                'is_manager' => $var
 			);
 			$this->session->set_userdata($data);
-			redirect('admin/products');
+
+            if ($var)
+                redirect('reports');
+            else
+                redirect('sell');
 		}
 		else // incorrect username or password
 		{
 			$data['message_error'] = TRUE;
-			$this->load->view('admin/login', $data);	
+			$this->load->view('login', $data);	
 		}
 	}	
 
@@ -61,7 +71,7 @@ class User extends CI_Controller {
     */
 	function signup()
 	{
-		$this->load->view('admin/signup_form');	
+		$this->load->view('signup_form');	
 	}
 	
 
@@ -84,7 +94,7 @@ class User extends CI_Controller {
 		
 		if($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('admin/signup_form');
+			$this->load->view('signup_form');
 		}
 		
 		else
@@ -93,11 +103,11 @@ class User extends CI_Controller {
 			
 			if($query = $this->Users_model->create_member())
 			{
-				$this->load->view('admin/signup_successful');			
+				$this->load->view('signup_successful');			
 			}
 			else
 			{
-				$this->load->view('admin/signup_form');			
+				$this->load->view('signup_form');			
 			}
 		}
 		
@@ -110,7 +120,7 @@ class User extends CI_Controller {
 	function logout()
 	{
 		$this->session->sess_destroy();
-		redirect('admin');
+		redirect('');
 	}
 
 }

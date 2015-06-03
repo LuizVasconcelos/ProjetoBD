@@ -14,8 +14,8 @@
 
       <div class="page-header users-header">
         <h2>
-          <?php echo ucfirst($this->uri->segment(2));?> 
-          <a  href="<?php echo site_url("admin").'/'.$this->uri->segment(2); ?>/add" class="btn btn-success">Add a new</a>
+          <?php echo ucfirst($this->uri->segment(1));?> 
+          <a href="<?php echo site_url() . $this->uri->segment(1); ?>/add" class="btn btn-success">Add a new</a>
         </h2>
       </div>
       
@@ -41,11 +41,10 @@
               break;
             }
 
-            echo form_open('admin/products', $attributes);
+            echo form_open('products', $attributes);
      
               echo form_label('Search:', 'search_string');
-              echo form_input('search_string', $search_string_selected, 'style="width: 170px;
-height: 26px;"');
+              echo form_input('search_string', $search_string_selected, 'style="width: 160px; height: 26px;"');
 
               echo form_label('Filter by manufacturer:', 'manufacture_id');
               echo form_dropdown('manufacture_id', $options_manufacture, $manufacture_selected, 'class="span2"');
@@ -68,29 +67,24 @@ height: 26px;"');
           <table class="table table-striped table-bordered table-condensed">
             <thead>
               <tr>
-                <th class="header">#</th>
-                <th class="yellow header headerSortDown">Description</th>
-                <th class="green header">Stock</th>
-                <th class="red header">Cost Price</th>
-                <th class="red header">Sell Price</th>
-                <th class="red header">Manufacture</th>
-                <th class="red header">Actions</th>
+                <th class="header">CPF</th>
+                <th class="yellow header headerSortDown">Nome</th>
+                <th class="green header">Função</th>
+                <th class="red header">Salário</th>
               </tr>
             </thead>
             <tbody>
               <?php
-              foreach($products as $row)
+              foreach($employees as $row)
               {
                 echo '<tr>';
-                echo '<td>'.$row['id'].'</td>';
-                echo '<td>'.$row['description'].'</td>';
-                echo '<td>'.$row['stock'].'</td>';
-                echo '<td>'.$row['cost_price'].'</td>';
-                echo '<td>'.$row['sell_price'].'</td>';
-                echo '<td>'.$row['manufacture_name'].'</td>';
+                echo '<td>'.$row['cpf'].'</td>';
+                echo '<td>'.$row['nome'].'</td>';
+                echo '<td>'.$row['funcao'].'</td>';
+                echo '<td>'.$row['salario'].'</td>';
                 echo '<td class="crud-actions">
-                  <a href="'.site_url("admin").'/products/update/'.$row['id'].'" class="btn btn-info">view & edit</a>  
-                  <a href="'.site_url("admin").'/products/delete/'.$row['id'].'" class="btn btn-danger">delete</a>
+                  <a href="'.site_url("admin").'/products/update/'.$row['cpf'].'" class="btn btn-info">view & edit</a>  
+                  <a href="'.site_url("admin").'/products/delete/'.$row['cpf'].'" class="btn btn-danger">delete</a>
                 </td>';
                 echo '</tr>';
               }
