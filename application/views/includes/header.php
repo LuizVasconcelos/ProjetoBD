@@ -11,17 +11,17 @@
 	    <div class="container">
 	      <a class="brand">ProjetoBD</a>
 	      <ul class="nav">
-	        <li <?php if($this->uri->segment(2) == 'products'){echo 'class="active"';}?>>
-	          <a href="<?php echo base_url(); ?>admin/products">Products</a>
+	        <li <?php if ($this->uri->segment(1) == 'reports') { echo 'class="active"'; } ?>>
+	          <a href="<?php echo base_url(); ?>reports">Relatórios</a>
 	        </li>
-	        <li <?php if($this->uri->segment(2) == 'manufacturers'){echo 'class="active"';}?>>
-	          <a href="<?php echo base_url(); ?>admin/manufacturers">Manufacturers</a>
+	        <li <?php if( $this->uri->segment(1) == 'manufacturers'){ echo 'class="active"'; } ?>>
+	          <a href="<?php echo base_url(); ?>manufacturers">Manufacturers</a>
 	        </li>
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">System <b class="caret"></b></a>
 	          <ul class="dropdown-menu">
 	            <li>
-	              <a href="<?php echo base_url(); ?>admin/logout">Logout</a>
+	              <a href="<?php echo base_url(); ?>logout">Logout</a>
 	            </li>
 	          </ul>
 	        </li>
