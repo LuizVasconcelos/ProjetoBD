@@ -9,7 +9,7 @@
 	<div class="navbar navbar-fixed-top">
 	  <div class="navbar-inner">
 	    <div class="container">
-	      <a class="brand">Project Name</a>
+	      <a class="brand">ProjetoBD</a>
 	      <ul class="nav">
 	        <li <?php if($this->uri->segment(2) == 'products'){echo 'class="active"';}?>>
 	          <a href="<?php echo base_url(); ?>admin/products">Products</a>
