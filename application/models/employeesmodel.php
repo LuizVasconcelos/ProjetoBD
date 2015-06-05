@@ -10,7 +10,7 @@ class EmployeesModel extends CI_Model {
         $this->load->database();
     }
 
-    public function get_employees($search_data)
+    public function get_employees($search_data = array())
     {
         $like = empty($search_data['search_string']) ? '' : $search_data['search_string'];
         $orderby = empty($search_data['orderby']) ? 'nome' : $search_data['orderby'];
@@ -20,104 +20,16 @@ class EmployeesModel extends CI_Model {
         return $query->result_array();
     }
 
-    /**
-    * Get product by his is
-    * @param int $product_id 
-    * @return array
-    */
-    public function get_product_by_id($id)
+    public function get_functions()
     {
-		$this->db->select('*');
-		$this->db->from('products');
-		$this->db->where('id', $id);
-		$query = $this->db->get();
-		return $query->result_array(); 
+        $this->db->select('nome');
+        $this->db->from('funcao');
+        return $this->db->get()->result_array();
     }
 
-    /**
-    * Fetch products data from the database
-    * possibility to mix search, filter and order
-    * @param int $manufacuture_id 
-    * @param string $search_string 
-    * @param strong $order
-    * @param string $order_type 
-    * @param int $limit_start
-    * @param int $limit_end
-    * @return array
-    */
-    public function get_products($manufacture_id=null, $search_string=null, $order=null, $order_type='Asc', $limit_start, $limit_end)
+    function store($data)
     {
-	    
-		$this->db->select('products.id');
-		$this->db->select('products.description');
-		$this->db->select('products.stock');
-		$this->db->select('products.cost_price');
-		$this->db->select('products.sell_price');
-		$this->db->select('products.manufacture_id');
-		$this->db->select('manufacturers.name as manufacture_name');
-		$this->db->from('products');
-		if($manufacture_id != null && $manufacture_id != 0){
-			$this->db->where('manufacture_id', $manufacture_id);
-		}
-		if($search_string){
-			$this->db->like('description', $search_string);
-		}
-
-		$this->db->join('manufacturers', 'products.manufacture_id = manufacturers.id', 'left');
-
-		$this->db->group_by('products.id');
-
-		if($order){
-			$this->db->order_by($order, $order_type);
-		}else{
-		    $this->db->order_by('id', $order_type);
-		}
-
-
-		$this->db->limit($limit_start, $limit_end);
-		//$this->db->limit('4', '4');
-
-
-		$query = $this->db->get();
-		
-		return $query->result_array(); 	
-    }
-
-    /**
-    * Count the number of rows
-    * @param int $manufacture_id
-    * @param int $search_string
-    * @param int $order
-    * @return int
-    */
-    function count_products($manufacture_id=null, $search_string=null, $order=null)
-    {
-		$this->db->select('*');
-		$this->db->from('products');
-		if($manufacture_id != null && $manufacture_id != 0){
-			$this->db->where('manufacture_id', $manufacture_id);
-		}
-		if($search_string){
-			$this->db->like('description', $search_string);
-		}
-		if($order){
-			$this->db->order_by($order, 'Asc');
-		}else{
-		    $this->db->order_by('id', 'Asc');
-		}
-		$query = $this->db->get();
-		return $query->num_rows();        
-    }
-
-    /**
-    * Store the new item into the database
-    * @param array $data - associative array with data to store
-    * @return boolean 
-    */
-    function store_product($data)
-    {
-		$insert = $this->db->insert('products', $data);
-	    return $insert;
+	    return $this->db->insert('funcionario', $data);
 	}
 
     /**

@@ -9,11 +9,11 @@ DROP PROCEDURE IF EXISTS gerar_relatorio_movimentacao$$
 CREATE PROCEDURE gerar_relatorio_funcionario (search varchar (20), campo varchar(10), ordenacao varchar(4))
 BEGIN
     SET @query = CONCAT('SELECT cpf, nome, salario, funcao FROM funcionario',
-                    ' ORDER BY ', campo, ' ', ordenacao,
-                    ' WHERE cpf LIKE \'%', search, '%\'',
-                    ' OR nome LIKE  \'%', search, '%\'',
-                    ' OR salario LIKE  \'%', search, '%\'',
-                    ' OR funcao LIKE  \'%', search, '%\'');
+                    ' WHERE cpf LIKE "%', search, '%"',
+                    ' OR nome LIKE  "%', search, '%"',
+                    ' OR salario LIKE  "%', search, '%"',
+                    ' OR funcao LIKE  "%', search, '%"',
+                    ' ORDER BY ', campo, ' ', ordenacao);
     PREPARE stmt FROM @query;
     EXECUTE stmt;
 END$$

@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+ini_set('display_errors', 1);
+
 class Employees extends CI_Controller {
 
     var $cached_search_string = '';
@@ -28,9 +31,6 @@ class Employees extends CI_Controller {
     */
     public function index()
     {
-        // all the posts sent by the view
-        $manufacture_id = $this->input->post('manufacture_id');
-
         $search_string = $this->input->post('search_string');
         $order = $this->input->post('order'); 
         $order_type = $this->input->post('order_type'); 
@@ -60,7 +60,6 @@ class Employees extends CI_Controller {
         // load the view
         $data['main_content'] = 'employees/list';
         $this->load->view('includes/template', $data);  
-
     }
 
     public function add()
@@ -68,35 +67,31 @@ class Employees extends CI_Controller {
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             // form validation
-            $this->form_validation->set_rules('description', 'description', 'required');
-            $this->form_validation->set_rules('stock', 'stock', 'required|numeric');
-            $this->form_validation->set_rules('cost_price', 'cost_price', 'required|numeric');
-            $this->form_validation->set_rules('sell_price', 'sell_price', 'required|numeric');
-            $this->form_validation->set_rules('manufacture_id', 'manufacture_id', 'required');
+            $this->form_validation->set_rules('cpf', 'cpf', 'required|numeric');
+            $this->form_validation->set_rules('name', 'name', 'required');
+            $this->form_validation->set_rules('function', 'function', 'required');
+            $this->form_validation->set_rules('salary', 'salary', 'required|numeric');
+            $this->form_validation->set_rules('password', 'password', 'required');
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
 
             // if the form has passed through the validation
             if ($this->form_validation->run())
             {
                 $data_to_store = array(
-                    'description' => $this->input->post('description'),
-                    'stock' => $this->input->post('stock'),
-                    'cost_price' => $this->input->post('cost_price'),
-                    'sell_price' => $this->input->post('sell_price'),          
-                    'manufacture_id' => $this->input->post('manufacture_id')
+                    'cpf' => $this->input->post('cpf'),
+                    'nome' => $this->input->post('name'),
+                    'funcao' => $this->input->post('function'),
+                    'salario' => $this->input->post('salary'),
+                    'senha' => $this->input->post('password')
                 );
+
                 // if the insert has returned true then we show the flash message
-                if ($this->products_model->store_product($data_to_store))
-                    $data['flash_message'] = TRUE; 
-                else
-                    $data['flash_message'] = FALSE; 
+                $data['flash_message'] = $this->EmployeesModel->store($data_to_store);
             }
         }
 
-        // fetch manufactures data to populate the select field
-        $data['manufactures'] = $this->manufacturers_model->get_manufacturers();
-        // load the view
-        $data['main_content'] = 'products/add';
+        $data['functions'] = $this->EmployeesModel->get_functions();
+        $data['main_content'] = 'employees/add';
         $this->load->view('includes/template', $data);  
     }       
 
