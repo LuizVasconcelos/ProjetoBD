@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en-US">
 <head>
-  <title>CodeIgniter Admin Sample Project</title>
+  <title>ProjetoBD</title>
   <meta charset="utf-8">
   <link href="<?php echo base_url(); ?>assets/css/admin/global.css" rel="stylesheet" type="text/css">
 </head>
@@ -11,8 +11,8 @@
 	    <div class="container">
 	      <a class="brand">ProjetoBD</a>
 	      <ul class="nav">
-	        <li <?php if ($this->uri->segment(1) == 'stock') { echo 'class="active"'; } ?>>
-	          <a href="<?=base_url()?>stock">Estoque</a>
+	        <li <?php if ($this->uri->segment(1) == 'products') { echo 'class="active"'; } ?>>
+	          <a href="<?=base_url()?>products">Produtos</a>
 	        </li>
 	        <li <?php if ($this->uri->segment(1) == 'employees') { echo 'class="active"'; } ?>>
 	          <a href="<?=base_url()?>employees">Funcionários</a>
