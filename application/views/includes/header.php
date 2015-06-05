@@ -14,9 +14,11 @@
 	        <li <?php if ($this->uri->segment(1) == 'products') { echo 'class="active"'; } ?>>
 	          <a href="<?=base_url()?>products">Produtos</a>
 	        </li>
+            <?php if ($this->session->userdata('is_manager')) { ?>
 	        <li <?php if ($this->uri->segment(1) == 'employees') { echo 'class="active"'; } ?>>
 	          <a href="<?=base_url()?>employees">Funcionários</a>
 	        </li>
+            <?php } ?>
 	        <li <?php if ($this->uri->segment(1) == 'suppliers') { echo 'class="active"'; } ?>>
 	          <a href="<?=base_url()?>suppliers">Fornecedores</a>
 	        </li>
