@@ -5,14 +5,11 @@ ini_set('display_errors', 1);
 
 class Employees extends CI_Controller {
 
+    // for listing
     var $cached_search_string = '';
     var $cached_order = 'nome';
     var $cached_order_type = 'ASC';
  
-    /**
-    * Responsable for auto load the model
-    * @return void
-    */
     public function __construct()
     {
         parent::__construct();
@@ -25,10 +22,6 @@ class Employees extends CI_Controller {
             redirect('login');
     }
  
-    /**
-    * Load the main view with all the current model model's data.
-    * @return void
-    */
     public function index()
     {
         $search_string = $this->input->post('search_string');
@@ -95,26 +88,19 @@ class Employees extends CI_Controller {
         $this->load->view('includes/template', $data);  
     }       
 
-    /**
-    * Update item by his id
-    * @return void
-    */
     public function update()
     {
-        //product id 
-        $id = $this->uri->segment(4);
+        $id = $this->uri->segment(3);
   
-        //if save button was clicked, get the data sent via post
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
-            //form validation
             $this->form_validation->set_rules('description', 'description', 'required');
             $this->form_validation->set_rules('stock', 'stock', 'required|numeric');
             $this->form_validation->set_rules('cost_price', 'cost_price', 'required|numeric');
             $this->form_validation->set_rules('sell_price', 'sell_price', 'required|numeric');
             $this->form_validation->set_rules('manufacture_id', 'manufacture_id', 'required');
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
-            //if the form has passed through the validation
+
             if ($this->form_validation->run())
             {
     
@@ -125,7 +111,7 @@ class Employees extends CI_Controller {
                     'sell_price' => $this->input->post('sell_price'),          
                     'manufacture_id' => $this->input->post('manufacture_id')
                 );
-                //if the insert has returned true then we show the flash message
+
                 if($this->products_model->update_product($id, $data_to_store) == TRUE){
                     $this->session->set_flashdata('flash_message', 'updated');
                 }else{
@@ -147,19 +133,12 @@ class Employees extends CI_Controller {
         //load the view
         $data['main_content'] = 'products/edit';
         $this->load->view('includes/template', $data);            
+    }
 
-    }//update
-
-    /**
-    * Delete product by his id
-    * @return void
-    */
     public function delete()
     {
-        //product id 
-        $id = $this->uri->segment(4);
-        $this->products_model->delete_product($id);
-        redirect('products');
-    }//edit
-
+        $id = $this->uri->segment(3);
+        $this->EmployeesModel->delete($id);
+        redirect(site_url() . $this->uri->segment(1));
+    }
 }

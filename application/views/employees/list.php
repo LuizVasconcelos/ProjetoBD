@@ -66,8 +66,8 @@
                 echo '<td>' . $row['funcao'] . '</td>';
                 echo '<td>' . $row['salario'] . '</td>';
                 echo '<td class="crud-actions">
-                  <a href="' . site_url() . 'reports/update/' . $row['cpf'] . '" class="btn btn-info">view & edit</a>  
-                  <a href="' . site_url() . 'reports/delete/' . $row['cpf'] . '" class="btn btn-danger">delete</a>
+                  <a href="' . site_url() . 'employees/update/' . $row['cpf'] . '" class="btn btn-info">view & edit</a>  
+                  <a href="' . site_url() . 'employees/delete/' . $row['cpf'] . '" class="btn btn-danger">delete</a>
                 </td>';
                 echo '</tr>';
               }

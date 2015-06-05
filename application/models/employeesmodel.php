@@ -51,15 +51,9 @@ class EmployeesModel extends CI_Model {
 		}
 	}
 
-    /**
-    * Delete product
-    * @param int $id - product id
-    * @return boolean
-    */
-	function delete_product($id){
-		$this->db->where('id', $id);
-		$this->db->delete('products'); 
+	function delete($id){
+		$this->db->where('cpf', $id);
+		$this->db->delete('funcionario'); 
 	}
- 
 }
 ?>	
