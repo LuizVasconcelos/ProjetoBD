@@ -29,14 +29,14 @@
         {
             echo '<div class="alert alert-success">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo 'Produto cadastrado com sucesso.';
+            echo 'Fornecedor cadastrado com sucesso.';
             echo '</div>';       
         }
         else
         {
             echo '<div class="alert alert-error">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo 'Produto ao tentar cadastrar funcionário.';
+            echo 'Fornecedor ao tentar cadastrar funcionário.';
             echo '</div>';          
         }
     }
@@ -47,32 +47,19 @@
     // form validation
     echo validation_errors();
 
-    echo form_open('products/add', $attributes);
+    echo form_open('suppliers/add', $attributes);
     ?>
     <fieldset>
+        <div class="control-group">
+          <label for="cnpj" class="control-label">CNPJ</label>
+          <div class="controls">
+            <input type="text" id="" name="cnpj" value="<?=set_value('cnpj')?>" >
+          </div>
+        </div>
         <div class="control-group">
           <label for="name" class="control-label">Nome</label>
           <div class="controls">
             <input type="text" id="" name="name" value="<?=set_value('name')?>" >
-          </div>
-        </div>
-        <div class="control-group">
-          <label for="description" class="control-label">Descrição</label>
-          <div class="controls">
-            <input type="text" id="" name="description" value="<?=set_value('description')?>">
-          </div>
-        </div>
-        <div class="control-group">
-          <label for="price" class="control-label">Preço</label>
-          <div class="controls">
-            <input type="text" name="price" value="<?=set_value('price')?>">
-            <span class="help-inline">Ex: 1200,00</span>
-          </div>
-        </div>
-        <div class="control-group">
-          <label for="amount" class="control-label">Quantidade</label>
-          <div class="controls">
-            <input type="text" name="amount" value="<?=set_value('amount')?>">
           </div>
         </div>
         <div class="form-actions">
