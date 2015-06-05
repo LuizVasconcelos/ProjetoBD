@@ -65,7 +65,7 @@ CREATE TABLE telefone_fornecedor(
 
 
 CREATE TABLE produto_estoque(
-	id INT PRIMARY KEY,
+	id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50),
     qtd INT,
     descricao TEXT,
