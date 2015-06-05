@@ -46,8 +46,6 @@ $route['login'] = 'user/index';
 $route['logout'] = 'user/logout';
 $route['login/validate_credentials'] = 'user/validate_credentials';
 
-$route['reports'] = 'reports/index';
-
 $route['products'] = 'products/index';
 $route['products/add'] = 'products/add';
 $route['products/update'] = 'products/update';

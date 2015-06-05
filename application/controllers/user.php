@@ -12,7 +12,7 @@ class User extends CI_Controller {
         if ($this->session->userdata('is_logged_in'))
         {
             if ($this->session->userdata('is_manager'))
-                redirect('reports');
+                redirect('employees');
             else
                 redirect('sell');
         }
@@ -35,17 +35,17 @@ class User extends CI_Controller {
 	function validate_credentials()
 	{	
 
-		$this->load->model('Users_model');
+		$this->load->model('UsersModel');
 
 		$user_name = $this->input->post('user_name');
 		$password = $this->input->post('password');
 		//$password = $this->__encrip_password($this->input->post('password'));
 
-		$is_valid = $this->Users_model->validate($user_name, $password);
+		$is_valid = $this->UsersModel->validate($user_name, $password);
 		
 		if($is_valid)
 		{
-            $var = $this->Users_model->check_manager($user_name);
+            $var = $this->UsersModel->check_manager($user_name);
 			$data = array(
 				'user_name' => $user_name,
                 'is_logged_in' => true,
@@ -54,7 +54,7 @@ class User extends CI_Controller {
 			$this->session->set_userdata($data);
 
             if ($var)
-                redirect('reports');
+                redirect('employees');
             else
                 redirect('sell');
 		}
@@ -99,9 +99,9 @@ class User extends CI_Controller {
 		
 		else
 		{			
-			$this->load->model('Users_model');
+			$this->load->model('UsersModel');
 			
-			if($query = $this->Users_model->create_member())
+			if($query = $this->UsersModel->create_member())
 			{
 				$this->load->view('signup_successful');			
 			}

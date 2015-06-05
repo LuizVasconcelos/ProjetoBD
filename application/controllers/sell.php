@@ -16,9 +16,6 @@ class Sell extends CI_Controller {
 
         if (!$this->session->userdata('is_logged_in'))
             redirect('login');
-
-        if (!$this->session->userdata('is_manager'))
-            redirect('login');
     }
  
     /**

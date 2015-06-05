@@ -11,20 +11,28 @@
 	    <div class="container">
 	      <a class="brand">ProjetoBD</a>
 	      <ul class="nav">
-	        <li <?php if ($this->uri->segment(1) == 'reports') { echo 'class="active"'; } ?>>
-	          <a href="<?php echo base_url(); ?>reports">Relatórios</a>
+	        <li <?php if ($this->uri->segment(1) == 'stock') { echo 'class="active"'; } ?>>
+	          <a href="<?=base_url()?>stock">Estoque</a>
 	        </li>
-	        <li <?php if( $this->uri->segment(1) == 'manufacturers'){ echo 'class="active"'; } ?>>
-	          <a href="<?php echo base_url(); ?>manufacturers">Manufacturers</a>
+	        <li <?php if ($this->uri->segment(1) == 'employees') { echo 'class="active"'; } ?>>
+	          <a href="<?=base_url()?>employees">Funcionários</a>
 	        </li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">System <b class="caret"></b></a>
-	          <ul class="dropdown-menu">
-	            <li>
-	              <a href="<?php echo base_url(); ?>logout">Logout</a>
-	            </li>
-	          </ul>
+	        <li <?php if ($this->uri->segment(1) == 'suppliers') { echo 'class="active"'; } ?>>
+	          <a href="<?=base_url()?>suppliers">Fornecedores</a>
 	        </li>
+	        <li>
+	          <a href="<?=base_url(); ?>logout">Logout</a>
+	        </li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">System <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="<?php echo base_url(); ?>logout">Logout</a>
+                </li>
+              </ul>
+            </li>
+            -->
 	      </ul>
 	    </div>
 	  </div>

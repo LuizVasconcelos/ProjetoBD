@@ -1,6 +1,6 @@
 <?php
 
-class Users_model extends CI_Model {
+class UsersModel extends CI_Model {
 
     /**
     * Validate the login's data with the database

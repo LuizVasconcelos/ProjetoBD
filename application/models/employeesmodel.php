@@ -1,5 +1,5 @@
 <?php
-class Reports_model extends CI_Model {
+class EmployeesModel extends CI_Model {
  
     /**
     * Responsable for auto load the database
@@ -10,9 +10,13 @@ class Reports_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_employees()
+    public function get_employees($search_data)
     {
-        $query = $this->db->query('CALL gerar_relatorio_funcionario("nome", "DESC")');
+        $like = empty($search_data['search_string']) ? '' : $search_data['search_string'];
+        $orderby = empty($search_data['orderby']) ? 'nome' : $search_data['orderby'];
+        $order_type = empty($search_data['order_type']) ? 'ASC' : $search_data['order_type'];
+
+        $query = $this->db->query('CALL gerar_relatorio_funcionario("' . $like . '", "' . $orderby . '", "' . $order_type . '")');
         return $query->result_array();
     }
 
