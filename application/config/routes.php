@@ -40,27 +40,9 @@
 $route['default_controller'] = 'user/index';
 $route['404_override'] = '';
 
-/*admin*/
-$route['create_member'] = 'user/create_member';
 $route['login'] = 'user/index';
 $route['logout'] = 'user/logout';
 $route['login/validate_credentials'] = 'user/validate_credentials';
-
-$route['products'] = 'products/index';
-$route['products/add'] = 'products/add';
-$route['products/update'] = 'products/update';
-$route['products/update/(:any)'] = 'products/update/$1';
-$route['products/delete/(:any)'] = 'products/delete/$1';
-$route['products/(:any)'] = 'products/index/$1'; //$1 = page number
-
-$route['manufacturers'] = 'manufacturers/index';
-$route['manufacturers/add'] = 'manufacturers/add';
-$route['manufacturers/update'] = 'manufacturers/update';
-$route['manufacturers/update/(:any)'] = 'manufacturers/update/$1';
-$route['manufacturers/delete/(:any)'] = 'manufacturers/delete/$1';
-$route['manufacturers/(:any)'] = 'manufacturers/index/$1'; //$1 = page number
-
-
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
