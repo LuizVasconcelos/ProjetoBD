@@ -84,7 +84,7 @@
         <div class="control-group">
           <label for="password" class="control-label">Senha</label>
           <div class="controls">
-            <input type="text" name="password" value="<?=set_value('password')?>">
+            <input type="password" name="password" value="<?=set_value('password')?>">
           </div>
         </div>
         <div class="form-actions">
