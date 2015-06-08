@@ -85,7 +85,7 @@ CREATE TABLE fornecedor_produto(
 
 
 CREATE TABLE movimentacao(
-	id INT PRIMARY KEY,
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	descricao TEXT,
 	valor FLOAT,
 	tipo ENUM('c','v'),

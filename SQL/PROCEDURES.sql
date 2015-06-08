@@ -41,9 +41,17 @@ BEGIN
     EXECUTE stmt;
 END$$
 
-CREATE PROCEDURE gerar_relatorio_movimentacao (campo varchar(10), ordenacao varchar(4), data_inicio date, data_final date)
+CREATE PROCEDURE gerar_relatorio_movimentacao (search varchar(20), campo varchar(10), ordenacao varchar(4), data_inicial date, data_final date)
 BEGIN
-    SET @query = CONCAT('SELECT id, nome, quantidade, preco, descricao FROM produto_estoque WHERE data_movimentacao BETWEEN ', data_inicial, ' AND ', data_final, ' ORDER BY ', campo, ' ', ordenacao);
+    SET @query = CONCAT('SELECT id, descricao, valor, tipo, data_movimentacao, cpf FROM movimentacao',
+                    ' WHERE data_movimentacao BETWEEN ', data_inicial, ' AND ', data_final,
+                    ' OR id LIKE "%', search, '%"',
+                    ' OR descricao LIKE "%', search, '%"',
+                    ' OR valor LIKE "%', search, '%"',
+                    ' OR tipo LIKE "%', search, '%"',
+                    ' OR data_movimentacao LIKE "%', search, '%"',
+                    ' OR cpf LIKE "%', search, '%"',
+                    ' ORDER BY ', campo, ' ', ordenacao);
     PREPARE stmt FROM @query;
     EXECUTE stmt;
 END$$
