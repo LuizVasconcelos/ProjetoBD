@@ -11,6 +11,9 @@
 	    <div class="container">
 	      <a class="brand">ProjetoBD</a>
 	      <ul class="nav">
+            <li <?php if ($this->uri->segment(1) == 'cashflow') { echo 'class="active"'; } ?>>
+              <a href="<?=base_url()?>cashflow">Movimentação</a>
+            </li>
 	        <li <?php if ($this->uri->segment(1) == 'products') { echo 'class="active"'; } ?>>
 	          <a href="<?=base_url()?>products">Produtos</a>
 	        </li>
