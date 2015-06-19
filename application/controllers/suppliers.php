@@ -123,7 +123,12 @@ class Suppliers extends CI_Controller {
     public function delete()
     {
         $id = $this->uri->segment(3);
-        $this->SuppliersModel->delete($id);
-        redirect($this->uri->segment(1));
+        try {
+            $this->SuppliersModel->delete($id);
+            redirect($this->uri->segment(1));
+        } catch (Exception $e) {
+            $this->session->set_flashdata('error', $e->getMessage());
+            redirect($this->uri->segment(1));
+        }
     }
 }

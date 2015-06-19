@@ -1,3 +1,12 @@
+    <?php
+    if ($this->session->flashdata('error')) {
+    ?>
+    <div class="well popup">
+        <?=$this->session->flashdata('error')?>
+    </div>
+    <?php
+    }
+    ?>
     <div class="container top">
 
       <ul class="breadcrumb">

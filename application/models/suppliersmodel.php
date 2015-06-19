@@ -48,8 +48,21 @@ class SuppliersModel extends CI_Model {
 
     function delete($id)
     {
-		$this->db->where('cnpj', $id);
-		$this->db->delete('fornecedor'); 
+        $this->db->select('*');
+        $this->db->from('fornecedor_produto');
+        $this->db->where('cnpj', $id);
+        $query = $this->db->get();
+ 
+        if (sizeof($query->result_array()) > 0)
+        {
+            throw new Exception("Não é possível deletar o fornecedor porque ele possui produtos cadastrados.");
+            return false;
+        }
+        else
+        {
+            $this->db->where('cnpj', $id);
+            $this->db->delete('fornecedor');
+        }
 	}
 }
 ?>	

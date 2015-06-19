@@ -99,3 +99,11 @@ form label:first-child{
   margin-bottom: 15px;
   padding: 7px 9px;
 }
+
+.popup {
+    text-align: center;
+    color: red;
+    margin: 40px 0px -30px;
+    min-height: 20px;
+    padding: 10px 0px;
+}
