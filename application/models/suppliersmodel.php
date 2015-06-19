@@ -1,7 +1,7 @@
 <?php
 
 class SuppliersModel extends CI_Model {
- 
+
     public function __construct()
     {
         $this->load->database();
@@ -13,8 +13,8 @@ class SuppliersModel extends CI_Model {
 		$this->db->from('manufacturers');
 		$this->db->where('id', $id);
 		$query = $this->db->get();
-		return $query->result_array(); 
-    }    
+		return $query->result_array();
+    }
 
     public function get_suppliers($search_data = array())
     {
@@ -23,7 +23,7 @@ class SuppliersModel extends CI_Model {
         $order_type = empty($search_data['order_type']) ? 'ASC' : $search_data['order_type'];
 
         $query = $this->db->query('CALL gerar_relatorio_fornecedor("' . $like . '", "' . $orderby . '", "' . $order_type . '")');
-		return $query->result_array(); 	
+		return $query->result_array();
     }
 
     function store($data)
@@ -52,7 +52,7 @@ class SuppliersModel extends CI_Model {
         $this->db->from('fornecedor_produto');
         $this->db->where('cnpj', $id);
         $query = $this->db->get();
- 
+
         if (sizeof($query->result_array()) > 0)
         {
             throw new Exception("Não é possível deletar o fornecedor porque ele possui produtos cadastrados.");
@@ -61,8 +61,11 @@ class SuppliersModel extends CI_Model {
         else
         {
             $this->db->where('cnpj', $id);
+            $this->db->delete('telefone_fornecedor');
+
+            $this->db->where('cnpj', $id);
             $this->db->delete('fornecedor');
         }
 	}
 }
-?>	
+?>

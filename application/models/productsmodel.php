@@ -1,6 +1,6 @@
 <?php
 class ProductsModel extends CI_Model {
- 
+
     public function __construct()
     {
         $this->load->database();
@@ -12,7 +12,7 @@ class ProductsModel extends CI_Model {
 		$this->db->from('products');
 		$this->db->where('id', $id);
 		$query = $this->db->get();
-		return $query->result_array(); 
+		return $query->result_array();
     }
 
     public function get_products($search_data)
@@ -22,7 +22,7 @@ class ProductsModel extends CI_Model {
         $order_type = empty($search_data['order_type']) ? 'ASC' : $search_data['order_type'];
 
         $query = $this->db->query('CALL gerar_relatorio_estoque("' . $like . '", "' . $orderby . '", "' . $order_type . '")');
-		return $query->result_array(); 	
+		return $query->result_array();
     }
 
     function store($data)
@@ -45,9 +45,16 @@ class ProductsModel extends CI_Model {
 		}
 	}
 
-	function delete($id){
-		$this->db->where('id', $id);
-		$this->db->delete('produto_estoque'); 
+	function delete($id)
+    {
+        $this->db->where('id_produto', $id);
+        $this->db->delete('estoque_movimentacao');
+
+        $this->db->where('id', $id);
+        $this->db->delete('fornecedor_produto');
+
+        $this->db->where('id', $id);
+        $this->db->delete('produto_estoque');
 	}
 }
-?>	
+?>

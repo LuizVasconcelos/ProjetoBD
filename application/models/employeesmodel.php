@@ -1,6 +1,6 @@
 <?php
 class EmployeesModel extends CI_Model {
- 
+
     /**
     * Responsable for auto load the database
     * @return void
@@ -51,9 +51,16 @@ class EmployeesModel extends CI_Model {
 		}
 	}
 
-	function delete($id){
+	function delete($id)
+    {
+        $this->db->where('cpf', $id);
+        $this->db->delete('telefone_funcionario');
+        
+        $this->db->where('cpf', $id);
+        $this->db->delete('movimentacao');
+
 		$this->db->where('cpf', $id);
-		$this->db->delete('funcionario'); 
+		$this->db->delete('funcionario');
 	}
 }
-?>	
+?>
