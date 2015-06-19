@@ -26,7 +26,7 @@
             <?php
            
             $attributes = array('class' => 'form-inline reset-margin', 'id' => 'myform');
-            echo form_open('products', $attributes);
+            echo form_open('suppliers', $attributes);
      
               echo form_label('Buscar:', 'search_string');
               echo form_input('search_string', $search_string_selected, 'style="width: 160px;"');
