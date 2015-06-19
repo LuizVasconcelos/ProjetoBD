@@ -37,7 +37,7 @@ class Cashflow extends CI_Controller {
             $order_type = $cached_order_type;
 
         $data['search_string_selected'] = $cached_search_string;
-        $data['order_selected'] = $cached_order;
+        $data['orderby'] = $cached_order;
         $data['order_type_selected'] = $cached_order_type;
 
         $search_data = array('search_string' => $search_string, 'orderby' => $order, 'order_type' => $order_type);

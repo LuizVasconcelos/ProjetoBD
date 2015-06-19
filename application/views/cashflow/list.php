@@ -34,7 +34,7 @@
               echo form_label('Ordenar por:', 'order');
               $keys = array_keys($products[0]);
               $columns = array_combine($keys, $keys);
-              echo form_dropdown('order', $columns, $order_selected, 'class="span2"');
+              echo form_dropdown('order', $columns, $orderby, 'class="span2"');
 
               $options_order_type = array('ASC' => 'Crescente', 'DESC' => 'Decrescente');
               echo form_dropdown('order_type', $options_order_type, $order_type_selected, 'class="span2"');
