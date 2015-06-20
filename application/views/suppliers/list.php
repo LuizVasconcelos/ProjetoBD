@@ -71,8 +71,8 @@
                 echo '<td>' . $row['cnpj'] . '</td>';
                 echo '<td>' . $row['nome'] . '</td>';
                 echo '<td class="crud-actions">
-                  <a href="' . site_url() . 'suppliers/update/' . $row['cnpj'] . '" class="btn btn-info">view & edit</a>  
-                  <a href="' . site_url() . 'suppliers/delete/' . $row['cnpj'] . '" class="btn btn-danger">delete</a>
+                  <a href="' . site_url() . 'suppliers/update/' . $row['cnpj'] . '" class="btn btn-info">visualizar e editar</a>  
+                  <a href="' . site_url() . 'suppliers/delete/' . $row['cnpj'] . '" class="btn btn-danger">remover</a>
                 </td>';
                 echo '</tr>';
               }

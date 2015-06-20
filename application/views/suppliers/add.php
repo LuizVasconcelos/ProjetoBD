@@ -36,7 +36,7 @@
         {
             echo '<div class="alert alert-error">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo 'Fornecedor ao tentar cadastrar funcionário.';
+            echo 'Erro ao tentar cadastrar Fornecedor.';
             echo '</div>';          
         }
     }

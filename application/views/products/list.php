@@ -78,8 +78,8 @@
                 echo '<td>' . $row['descricao'] . '</td>';
                 echo '<td>' . $row['preco'] . '</td>';
                 echo '<td class="crud-actions">
-                  <a href="' . site_url() . 'products/update/' . $row['id'] . '" class="btn btn-info">view & edit</a>
-                  <a href="' . site_url() . 'products/delete/' . $row['id'] . '" class="btn btn-danger">delete</a>
+                  <a href="' . site_url() . 'products/update/' . $row['id'] . '" class="btn btn-info">visualizar e editar</a>
+                  <a href="' . site_url() . 'products/delete/' . $row['id'] . '" class="btn btn-danger">remover</a>
                 </td>';
                 echo '</tr>';
               }

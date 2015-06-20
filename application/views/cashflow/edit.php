@@ -32,12 +32,12 @@
         {
           echo '<div class="alert alert-success">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo '<strong>Well done!</strong> product updated with success.';
+            echo '<strong>Muito bem!</strong> Movimentação atualizada com sucesso.';
           echo '</div>';       
         }else{
           echo '<div class="alert alert-error">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo '<strong>Oh snap!</strong> change a few things up and try submitting again.';
+            echo '<strong>Ops!</strong> Modifique algum valor e tente atualizar novamente.';
           echo '</div>';          
         }
       }
@@ -59,28 +59,28 @@
       ?>
         <fieldset>
           <div class="control-group">
-            <label for="inputError" class="control-label">Description</label>
+            <label for="inputError" class="control-label">Descrição</label>
             <div class="controls">
               <input type="text" id="" name="description" value="<?php echo $product[0]['description']; ?>" >
               <!--<span class="help-inline">Woohoo!</span>-->
             </div>
           </div>
           <div class="control-group">
-            <label for="inputError" class="control-label">Stock</label>
+            <label for="inputError" class="control-label">Estoque</label>
             <div class="controls">
               <input type="text" id="" name="stock" value="<?php echo $product[0]['stock']; ?>">
               <!--<span class="help-inline">Cost Price</span>-->
             </div>
           </div>          
           <div class="control-group">
-            <label for="inputError" class="control-label">Cost Price</label>
+            <label for="inputError" class="control-label">Preço de custo</label>
             <div class="controls">
               <input type="text" id="" name="cost_price" value="<?php echo $product[0]['cost_price'];?>">
               <!--<span class="help-inline">Cost Price</span>-->
             </div>
           </div>
           <div class="control-group">
-            <label for="inputError" class="control-label">Sell Price</label>
+            <label for="inputError" class="control-label">Preço de Venda</label>
             <div class="controls">
               <input type="text" name="sell_price" value="<?php echo $product[0]['sell_price']; ?>">
               <!--<span class="help-inline">OOps</span>-->
@@ -88,7 +88,7 @@
           </div>
           <?php
           echo '<div class="control-group">';
-            echo '<label for="manufacture_id" class="control-label">Manufacture</label>';
+            echo '<label for="manufacture_id" class="control-label">Fabricação</label>';
             echo '<div class="controls">';
               //echo form_dropdown('manufacture_id', $options_manufacture, '', 'class="span2"');
               
@@ -98,8 +98,8 @@
           echo '</div">';
           ?>
           <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Save changes</button>
-            <button class="btn" type="reset">Cancel</button>
+            <button class="btn btn-primary" type="submit">Salvar alterações</button>
+            <button class="btn" type="reset">Cancelar</button>
           </div>
         </fieldset>
 

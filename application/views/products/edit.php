@@ -32,12 +32,12 @@
         {
           echo '<div class="alert alert-success">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo '<strong>Well done!</strong> product updated with success.';
+            echo '<strong>Muito bem!</strong> Produto atualizado com sucesso.';
           echo '</div>';       
         }else{
           echo '<div class="alert alert-error">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo '<strong>Oh snap!</strong> change a few things up and try submitting again.';
+            echo '<strong>Ops!</strong> Modifique algum valor e tente atualizar novamente.';
           echo '</div>';          
         }
       }

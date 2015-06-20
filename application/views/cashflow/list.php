@@ -80,8 +80,8 @@
                 echo '<td>' . $row['data_movimentacao'] . '</td>';
                 echo '<td>' . $row['cpf'] . '</td>';
                 echo '<td class="crud-actions">
-                  <a href="' . site_url() . 'cashflow/update/' . $row['id'] . '" class="btn btn-info">view & edit</a>
-                  <a href="' . site_url() . 'cashflow/delete/' . $row['id'] . '" class="btn btn-danger">delete</a>
+                  <a href="' . site_url() . 'cashflow/update/' . $row['id'] . '" class="btn btn-info">visualizar e editar</a>
+                  <a href="' . site_url() . 'cashflow/delete/' . $row['id'] . '" class="btn btn-danger">remover</a>
                 </td>';
                 echo '</tr>';
               }

@@ -32,12 +32,12 @@
         {
           echo '<div class="alert alert-success">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo '<strong>Well done!</strong> manufacturer updated with success.';
+            echo '<strong>Muito bem!</strong> Fornecedor atualizado com sucesso.';
           echo '</div>';       
         }else{
           echo '<div class="alert alert-error">';
             echo '<a class="close" data-dismiss="alert">×</a>';
-            echo '<strong>Oh snap!</strong> change a few things up and try submitting again.';
+            echo '<strong>Ops!</strong> Modifique algum valor e tente atualizar novamente.';
           echo '</div>';          
         }
       }
@@ -54,15 +54,15 @@
       ?>
         <fieldset>
           <div class="control-group">
-            <label for="inputError" class="control-label">Description</label>
+            <label for="inputError" class="control-label">Descrição</label>
             <div class="controls">
               <input type="text" id="" name="name" value="<?php echo $manufacture[0]['name']; ?>" >
               <!--<span class="help-inline">Woohoo!</span>-->
             </div>
           </div>
           <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Save changes</button>
-            <button class="btn" type="reset">Cancel</button>
+            <button class="btn btn-primary" type="submit">Salvar alterações</button>
+            <button class="btn" type="reset">Cancelar</button>
           </div>
         </fieldset>
 
