@@ -34,6 +34,12 @@
           <div class="well">
 
             <?php
+            // remove 'funcao_id' and 'funcao_nome' from list for combobox
+            $list = $employees;
+            for ($i = 0; $i < count($list); $i++) {
+                unset($list[$i]['funcao_id']);
+                unset($list[$i]['funcao_nome']);
+            }
 
             $attributes = array('class' => 'form-inline reset-margin', 'id' => 'myform');
             echo form_open('employees', $attributes);
@@ -42,7 +48,7 @@
               echo form_input('search_string', $search_string_selected, 'style="width: 160px;"');
 
               echo form_label('Ordenar por:', 'order');
-              $keys = array_keys($employees[0]);
+              $keys = array_keys($list[0]);
               $columns = array_combine($keys, $keys);
               echo form_dropdown('order', $columns, $order_selected, 'class="span2"');
 
@@ -73,7 +79,7 @@
                 echo '<tr>';
                 echo '<td>' . $row['cpf'] . '</td>';
                 echo '<td>' . $row['nome'] . '</td>';
-                echo '<td>' . $row['funcao'] . '</td>';
+                echo '<td>' . $row['funcao_nome'] . '</td>';
                 echo '<td>' . $row['salario'] . '</td>';
 				#adicionar aqui os goddamns telefones
                 echo '<td class="crud-actions">

@@ -9,11 +9,13 @@ DROP PROCEDURE IF EXISTS gerar_relatorio_fornecedor$$
 
 CREATE PROCEDURE gerar_relatorio_funcionario (search varchar (20), campo varchar(10), ordenacao varchar(4))
 BEGIN
-    SET @query = CONCAT('SELECT cpf, nome, salario, funcao FROM funcionario',
-                    ' WHERE cpf LIKE "%', search, '%"',
-                    ' OR nome LIKE  "%', search, '%"',
-                    ' OR salario LIKE  "%', search, '%"',
-                    ' OR funcao LIKE  "%', search, '%"',
+    SET @query = CONCAT('SELECT F.cpf, F.nome, F.salario, FN.id as funcao_id, FN.nome as funcao_nome',
+					' FROM funcionario F',
+                    ' JOIN funcao FN ON F.funcao AS FN.id',
+                    ' WHERE F.cpf LIKE "%', search, '%"',
+                    ' OR F.nome LIKE  "%', search, '%"',
+                    ' OR F.salario LIKE  "%', search, '%"',
+                    ' OR FN.nome LIKE  "%', search, '%"',
                     ' ORDER BY ', campo, ' ', ordenacao);
     PREPARE stmt FROM @query;
     EXECUTE stmt;

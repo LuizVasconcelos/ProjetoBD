@@ -20,21 +20,18 @@ DROP TABLE IF EXISTS estoque_movimentacao CASCADE;
 SET foreign_key_checks = 1;
 
 
-
 CREATE TABLE funcao(
-	nome VARCHAR(20) PRIMARY KEY
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(20)
 );
-
-
-
 
 CREATE TABLE funcionario(
 	cpf BIGINT PRIMARY KEY,
     nome VARCHAR(100),
     salario FLOAT,
     senha VARCHAR(20),
-    funcao VARCHAR(20),
-    FOREIGN KEY (funcao) REFERENCES funcao(nome)
+    funcao INT,
+    FOREIGN KEY (funcao) REFERENCES funcao (id)
 );
 
 
