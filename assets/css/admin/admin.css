@@ -7,7 +7,7 @@ html.login div.modal{ position:relative;margin:48px auto;top:0;left:0; }
 .center{ text-align:center; }
 form.search{ margin:0 0; }
 .list-page h2 a{ float:right; }
-.crud-actions{ width:158px; }
+.crud-actions{ text-align: center !important; width:170px; }
 
 #footer {
   margin:30px 0 30px 0;
@@ -58,15 +58,15 @@ body.login #footer hr {
 
 .pagination{
   text-align: center;
-} 
+}
 
 label{
   margin: 0 20px;
-} 
+}
 
 form label:first-child{
   margin: 0 20px 0 12px;
-} 
+}
 
 .container.login{margin-top: 60px;}
 .sidebar-nav {
