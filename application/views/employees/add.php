@@ -4,21 +4,21 @@
         <li>
             <a href="<?=site_url() . $this->uri->segment(1)?>">
                 <?=ucfirst($this->uri->segment(1))?>
-            </a> 
+            </a>
                 <span class="divider">/</span>
         </li>
         <li>
             <a href="<?=site_url() . $this->uri->segment(1) . '/' . $this->uri->segment(2)?>">
                 <?=ucfirst($this->uri->segment(2))?>
-            </a> 
+            </a>
             <span class="divider">/</span>
         </li>
-        <li class="active">New</li>
+        <li class="active">Novo</li>
     </ul>
 
     <div class="page-header">
         <h2>
-            Adding <?=ucfirst($this->uri->segment(1))?>
+            Adicionando <?=ucfirst($this->uri->segment(1))?>
         </h2>
     </div>
 
@@ -31,14 +31,14 @@
             echo '<div class="alert alert-success">';
             echo '<a class="close" data-dismiss="alert">×</a>';
             echo 'Funcionário cadastrado com sucesso.';
-            echo '</div>';       
+            echo '</div>';
         }
         else
         {
             echo '<div class="alert alert-error">';
             echo '<a class="close" data-dismiss="alert">×</a>';
             echo 'Falha ao tentar cadastrar funcionário.';
-            echo '</div>';          
+            echo '</div>';
         }
     }
 
@@ -46,7 +46,7 @@
     $attributes = array('class' => 'form-horizontal', 'id' => '');
     $options_functions = array('' => "Selecionar");
     foreach ($functions as $row)
-        $options_functions[$row['nome']] = ucfirst($row['nome']);
+        $options_functions[$row['id']] = $row['nome'];
 
     // form validation
     echo validation_errors();

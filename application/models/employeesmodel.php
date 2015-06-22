@@ -10,6 +10,15 @@ class EmployeesModel extends CI_Model {
         $this->load->database();
     }
 
+    public function employee($id)
+    {
+        $this->db->select('*');
+        $this->db->from('funcionario');
+        $this->db->where('cpf', $id);
+        $query = $this->db->get();
+        return $query->result_array()[0];
+    }
+
     public function get_employees($search_data = array())
     {
         $like = empty($search_data['search_string']) ? '' : $search_data['search_string'];
@@ -22,7 +31,7 @@ class EmployeesModel extends CI_Model {
 
     public function get_functions()
     {
-        $this->db->select('nome');
+        $this->db->select('*');
         $this->db->from('funcao');
         return $this->db->get()->result_array();
     }
@@ -32,23 +41,10 @@ class EmployeesModel extends CI_Model {
 	    return $this->db->insert('funcionario', $data);
 	}
 
-    /**
-    * Update product
-    * @param array $data - associative array with data to store
-    * @return boolean
-    */
-    function update_product($id, $data)
+    function update($id, $data)
     {
-		$this->db->where('id', $id);
-		$this->db->update('products', $data);
-		$report = array();
-		$report['error'] = $this->db->_error_number();
-		$report['message'] = $this->db->_error_message();
-		if($report !== 0){
-			return true;
-		}else{
-			return false;
-		}
+		$this->db->where('cpf', $id);
+		return $this->db->update('funcionario', $data);
 	}
 
 	function delete($id)
