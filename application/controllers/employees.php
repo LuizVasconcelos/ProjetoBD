@@ -6,7 +6,7 @@ class Employees extends CI_Controller {
     var $cached_search_string = '';
     var $cached_order = 'nome';
     var $cached_order_type = 'ASC';
- 
+
     public function __construct()
     {
         parent::__construct();
@@ -18,12 +18,12 @@ class Employees extends CI_Controller {
         if (!$this->session->userdata('is_manager'))
             redirect('login');
     }
- 
+
     public function index()
     {
         $search_string = $this->input->post('search_string');
-        $order = $this->input->post('order'); 
-        $order_type = $this->input->post('order_type'); 
+        $order = $this->input->post('order');
+        $order_type = $this->input->post('order_type');
 
         if ($search_string)
             $cached_search_string = $search_string;
@@ -49,7 +49,7 @@ class Employees extends CI_Controller {
 
         // load the view
         $data['main_content'] = 'employees/list';
-        $this->load->view('includes/template', $data);  
+        $this->load->view('includes/template', $data);
     }
 
     public function add()
@@ -82,13 +82,13 @@ class Employees extends CI_Controller {
 
         $data['functions'] = $this->EmployeesModel->get_functions();
         $data['main_content'] = 'employees/add';
-        $this->load->view('includes/template', $data);  
-    }       
+        $this->load->view('includes/template', $data);
+    }
 
     public function update()
     {
         $id = $this->uri->segment(3);
-  
+
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             $this->form_validation->set_rules('description', 'description', 'required');
@@ -100,12 +100,12 @@ class Employees extends CI_Controller {
 
             if ($this->form_validation->run())
             {
-    
+
                 $data_to_store = array(
                     'description' => $this->input->post('description'),
                     'stock' => $this->input->post('stock'),
                     'cost_price' => $this->input->post('cost_price'),
-                    'sell_price' => $this->input->post('sell_price'),          
+                    'sell_price' => $this->input->post('sell_price'),
                     'manufacture_id' => $this->input->post('manufacture_id')
                 );
 
@@ -123,19 +123,24 @@ class Employees extends CI_Controller {
         //if we are updating, and the data did not pass trough the validation
         //the code below wel reload the current data
 
-        //product data 
+        //product data
         $data['product'] = $this->products_model->get_product_by_id($id);
         //fetch manufactures data to populate the select field
         $data['manufactures'] = $this->manufacturers_model->get_manufacturers();
         //load the view
         $data['main_content'] = 'products/edit';
-        $this->load->view('includes/template', $data);            
+        $this->load->view('includes/template', $data);
     }
 
     public function delete()
     {
         $id = $this->uri->segment(3);
-        $this->EmployeesModel->delete($id);
-        redirect(site_url() . $this->uri->segment(1));
+        try {
+            $this->EmployeesModel->delete($id);
+            redirect(site_url() . $this->uri->segment(1));
+        } catch (Exception $e) {
+            $this->session->set_flashdata('error', $e->getMessage());
+            redirect($this->uri->segment(1));
+        }
     }
 }

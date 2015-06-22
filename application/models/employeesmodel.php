@@ -53,14 +53,24 @@ class EmployeesModel extends CI_Model {
 
 	function delete($id)
     {
+        $this->db->select('*');
+        $this->db->from('movimentacao');
         $this->db->where('cpf', $id);
-        $this->db->delete('telefone_funcionario');
-        
-        $this->db->where('cpf', $id);
-        $this->db->delete('movimentacao');
+        $query = $this->db->get();
 
-		$this->db->where('cpf', $id);
-		$this->db->delete('funcionario');
+        if (sizeof($query->result_array()) > 0)
+        {
+            throw new Exception("Não é possível deletar funcionário porque ele possui movimentações associadas.");
+            return false;
+        }
+        else
+        {
+            $this->db->where('cpf', $id);
+            $this->db->delete('telefone_funcionario');
+
+            $this->db->where('cpf', $id);
+            $this->db->delete('funcionario');
+        }
 	}
 }
 ?>
