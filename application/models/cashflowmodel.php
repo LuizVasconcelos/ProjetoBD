@@ -1,21 +1,21 @@
 <?php
 class CashflowModel extends CI_Model {
- 
+
     public function __construct()
     {
         $this->load->database();
     }
 
-    public function get_product_by_id($id)
+    public function cashflow($id)
     {
 		$this->db->select('*');
-		$this->db->from('products');
+		$this->db->from('movimentacao');
 		$this->db->where('id', $id);
 		$query = $this->db->get();
-		return $query->result_array(); 
+		return $query->result_array()[0];
     }
 
-    public function get_cashflow($search_data)
+    public function get_cashflows($search_data)
     {
         $like = empty($search_data['search_string']) ? '' : $search_data['search_string'];
         $orderby = empty($search_data['orderby']) ? 'id' : $search_data['orderby'];
@@ -24,32 +24,24 @@ class CashflowModel extends CI_Model {
         $now = empty($search_data['end_date']) ? date('Y-m-d') : $search_data['start_date'];
 
         $query = $this->db->query('CALL gerar_relatorio_movimentacao("' . $like . '", "' . $orderby . '", "' . $order_type . '", "' . $old . '", "' . $now . '")');
-		return $query->result_array(); 	
+		return $query->result_array();
     }
 
     function store($data)
     {
-		$insert = $this->db->insert('movimentacao', $data);
-	    return $insert;
+		return $this->db->insert('movimentacao', $data);
 	}
 
     function update($id, $data)
     {
 		$this->db->where('id', $id);
-		$this->db->update('products', $data);
-		$report = array();
-		$report['error'] = $this->db->_error_number();
-		$report['message'] = $this->db->_error_message();
-		if($report !== 0){
-			return true;
-		}else{
-			return false;
-		}
+        return $this->db->update('movimentacao', $data);
 	}
 
-	function delete($id){
+	function delete($id)
+    {
 		$this->db->where('id', $id);
-		$this->db->delete('movimentacao'); 
+		$this->db->delete('movimentacao');
 	}
 }
-?>	
+?>
