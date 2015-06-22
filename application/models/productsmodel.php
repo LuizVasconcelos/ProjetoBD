@@ -6,13 +6,13 @@ class ProductsModel extends CI_Model {
         $this->load->database();
     }
 
-    public function get_product_by_id($id)
+    public function product($id)
     {
 		$this->db->select('*');
-		$this->db->from('products');
+		$this->db->from('produto_estoque');
 		$this->db->where('id', $id);
 		$query = $this->db->get();
-		return $query->result_array();
+		return $query->result_array()[0];
     }
 
     public function get_products($search_data)
@@ -34,15 +34,7 @@ class ProductsModel extends CI_Model {
     function update($id, $data)
     {
 		$this->db->where('id', $id);
-		$this->db->update('products', $data);
-		$report = array();
-		$report['error'] = $this->db->_error_number();
-		$report['message'] = $this->db->_error_message();
-		if($report !== 0){
-			return true;
-		}else{
-			return false;
-		}
+		return $this->db->update('produto_estoque', $data);
 	}
 
 	function delete($id)
