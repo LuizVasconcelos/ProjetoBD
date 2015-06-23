@@ -18,7 +18,7 @@
 
     <div class="page-header">
         <h2>
-            Adicionando <?=ucfirst($this->uri->segment(1))?>
+            Adicionando Funcionário
         </h2>
     </div>
 

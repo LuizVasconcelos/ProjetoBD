@@ -18,7 +18,7 @@
 
     <div class="page-header">
         <h2>
-            Adicionado <?=ucfirst($this->uri->segment(1))?>
+            Adicionando Fornecedor
         </h2>
     </div>
 

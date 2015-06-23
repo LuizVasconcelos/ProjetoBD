@@ -18,7 +18,7 @@
 
     <div class="page-header">
         <h2>
-            Atualizando <?=ucfirst($this->uri->segment(1))?>
+            Atualizando Movimentação
         </h2>
     </div>
 

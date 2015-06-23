@@ -24,8 +24,8 @@
 
       <div class="page-header users-header">
         <h2>
-          <?php echo ucfirst($this->uri->segment(1));?>
-          <a href="<?php echo site_url() . $this->uri->segment(1); ?>/add" class="btn btn-success">Add a new</a>
+          <?php echo ucfirst('Funcionário');?>
+          <a href="<?php echo site_url() . $this->uri->segment(1); ?>/add" class="btn btn-success">Adicionar</a>
         </h2>
       </div>
 
