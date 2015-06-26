@@ -13,12 +13,8 @@
       <ul class="breadcrumb">
         <li>
           <a href="<?=site_url() . $this->uri->segment(1)?>">
-            <?php echo ucfirst($this->uri->segment(1));?>
+            Produtos
           </a>
-          <span class="divider">/</span>
-        </li>
-        <li class="active">
-          <?php echo ucfirst($this->uri->segment(2));?>
         </li>
       </ul>
 

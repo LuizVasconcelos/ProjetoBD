@@ -3,17 +3,15 @@
     <ul class="breadcrumb">
         <li>
             <a href="<?=site_url() . $this->uri->segment(1)?>">
-                <?=ucfirst($this->uri->segment(1))?>
-            </a>
-                <span class="divider">/</span>
-        </li>
-        <li>
-            <a href="<?=site_url() . $this->uri->segment(1) . '/' . $this->uri->segment(2)?>">
-                <?=ucfirst($this->uri->segment(2))?>
+                Produtos
             </a>
             <span class="divider">/</span>
         </li>
-        <li class="active">Novo</li>
+        <li>
+            <a href="<?=site_url() . $this->uri->segment(1) . '/' . $this->uri->segment(2)?>">
+                Adicionar
+            </a>
+        </li>
     </ul>
 
     <div class="page-header">
