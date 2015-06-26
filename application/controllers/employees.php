@@ -89,6 +89,9 @@ class Employees extends CI_Controller {
     {
         $id = $this->uri->segment(3);
 
+        if (empty($id))
+            redirect(site_url() . $this->uri->segment(1));
+
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             // form validation

@@ -71,8 +71,10 @@ class Suppliers extends CI_Controller {
 
     public function update()
     {
-        //product id
         $id = $this->uri->segment(3);
+
+        if (empty($id))
+            redirect(site_url() . $this->uri->segment(1));
 
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
