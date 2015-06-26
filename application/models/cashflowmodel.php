@@ -27,6 +27,16 @@ class CashflowModel extends CI_Model {
 		return $query->result_array();
     }
 
+    function get_profit($initial_date, $final_date)
+    {
+        $initial = DateTime::createFromFormat('d/m/Y', $initial_date)->format('Y-m-d');
+        $final = DateTime::createFromFormat('d/m/Y', $final_date)->format('Y-m-d');
+        $query = $this->db->query('select lucro("' . $initial . '", "' . $final . '")');
+
+        // que hack feio da mulesta dos cachorro
+        return $query->result_array()[0]['lucro("'.$initial.'", "'.$final.'")'];
+    }
+
     function store($data)
     {
 		return $this->db->insert('movimentacao', $data);

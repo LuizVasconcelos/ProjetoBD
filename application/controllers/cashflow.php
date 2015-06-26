@@ -2,13 +2,19 @@
 
 class Cashflow extends CI_Controller {
 
-    var $cached_search_string = '';
-    var $cached_order = 'id';
-    var $cached_order_type = 'ASC';
+    private $cached_search_string = '';
+    private $cached_order = 'id';
+    private $cached_order_type = 'ASC';
+    private $cached_initial_date;
+    private $cached_final_date;
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->cached_initial_date = date('d/m/Y');
+        $this->cached_final_date = date('d/m/Y');
+
         $this->load->model('CashflowModel');
 
         if (!$this->session->userdata('is_logged_in'))
@@ -20,28 +26,43 @@ class Cashflow extends CI_Controller {
         $search_string = $this->input->post('search_string');
         $order = $this->input->post('order');
         $order_type = $this->input->post('order_type');
+        $initial_date = $this->input->post('initial_date');
+        $final_date = $this->input->post('final_date');
 
         if ($search_string)
-            $cached_search_string = $search_string;
+            $this->cached_search_string = $search_string;
         else
-            $search_string = $cached_search_string;
+            $search_string = $this->cached_search_string;
 
         if ($order)
-            $cached_order = $order;
+            $this->cached_order = $order;
         else
-            $order = $cached_order;
+            $order = $this->cached_order;
 
         if ($order_type)
-            $cached_order_type = $order_type;
+            $this->cached_order_type = $order_type;
         else
-            $order_type = $cached_order_type;
+            $order_type = $this->cached_order_type;
 
-        $data['search_string_selected'] = $cached_search_string;
-        $data['orderby'] = $cached_order;
-        $data['order_type_selected'] = $cached_order_type;
+        if ($initial_date)
+            $this->cached_initial_date = $initial_date;
+        else
+            $initial_date = $this->cached_initial_date;
+
+        if ($final_date)
+            $this->cached_final_date = $final_date;
+        else
+            $final_date = $this->cached_final_date;
+
+        $data['search_string_selected'] = $search_string;
+        $data['orderby'] = $order;
+        $data['order_type_selected'] = $order_type;
+        $data['initial_date'] = $initial_date;
+        $data['final_date'] = $final_date;
+        $data['profit'] = $this->CashflowModel->get_profit($initial_date, $final_date);
 
         $search_data = array('search_string' => $search_string, 'orderby' => $order, 'order_type' => $order_type);
-        $data['products'] = $this->CashflowModel->get_cashflows($search_data);
+        $data['cashflows'] = $this->CashflowModel->get_cashflows($search_data);
 
         // load the view
         $data['main_content'] = 'cashflow/list';
