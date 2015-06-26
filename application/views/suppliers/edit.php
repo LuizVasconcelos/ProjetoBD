@@ -1,5 +1,4 @@
 <div class="container top">
-
     <ul class="breadcrumb">
         <li>
             <a href="<?=site_url() . $this->uri->segment(1)?>">
@@ -8,7 +7,7 @@
             <span class="divider">/</span>
         </li>
         <li>
-            <a href="<?=site_url() . $this->uri->segment(1) . '/' . $this->uri->segment(2)?>">
+            <a href="<?=site_url() . $this->uri->segment(1) . '/' . $this->uri->segment(2) . '/' . $this->uri->segment(3)?>">
                 Editar
             </a>
         </li>
