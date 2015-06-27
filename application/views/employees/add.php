@@ -45,7 +45,11 @@
     $options_functions = array('' => "Selecionar");
     foreach ($functions as $row)
         $options_functions[$row['id']] = $row['nome'];
-
+		
+    $options_phonecodes = array('' => "Código");
+    foreach ($phonecodes as $row)
+        $options_phonecodes[$row['id']] = $row['codigo'];
+		
     // form validation
     echo validation_errors();
 
@@ -85,6 +89,15 @@
             <input type="password" name="password" value="<?=set_value('password')?>">
           </div>
         </div>
+		<?php
+            echo '<div class="control-group">';
+            echo '<label for="phone" class="control-label">Telefone</label>';
+            echo '<div class="controls">';
+            echo form_dropdown('code', $options_phonecodes, set_value('code'), 'class="span2"');
+			echo '<input type="text" name="phone" maxlength="9" onkeypress="return event.charCode >= 48 && event.charCode <= 57">';
+            echo '</div>';
+            echo '</div>';
+        ?>
         <div class="form-actions">
             <button class="btn btn-primary" type="submit">Adicionar</button>
             <button class="btn" type="reset">Cancelar</button>

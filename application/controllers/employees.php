@@ -62,6 +62,8 @@ class Employees extends CI_Controller {
             $this->form_validation->set_rules('function', 'function', 'required');
             $this->form_validation->set_rules('salary', 'salary', 'required|numeric');
             $this->form_validation->set_rules('password', 'password', 'required');
+			$this->form_validation->set_rules('code', 'code', 'required');
+			$this->form_validation->set_rules('phone', 'phone', 'required|numeric');
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
 
             // if the form has passed through the validation
@@ -72,7 +74,9 @@ class Employees extends CI_Controller {
                     'nome' => $this->input->post('name'),
                     'funcao' => $this->input->post('function'),
                     'salario' => $this->input->post('salary'),
-                    'senha' => $this->input->post('password')
+                    'senha' => $this->input->post('password'),
+					'codigo' => $this->input->post('code'),
+					'telefone' => $this->input->post('phone')
                 );
 
                 // if the insert has returned true then we show the flash message
@@ -81,6 +85,7 @@ class Employees extends CI_Controller {
         }
 
         $data['functions'] = $this->EmployeesModel->get_functions();
+		$data['phonecodes'] = $this->EmployeesModel->get_phonecodes();
         $data['main_content'] = 'employees/add';
         $this->load->view('includes/template', $data);
     }
@@ -100,6 +105,8 @@ class Employees extends CI_Controller {
             $this->form_validation->set_rules('function', 'function', 'required');
             $this->form_validation->set_rules('salary', 'salary', 'required|numeric');
             $this->form_validation->set_rules('password', 'password', 'required');
+			$this->form_validation->set_rules('code', 'code', 'required');
+			$this->form_validation->set_rules('phone', 'phone', 'required|numeric');
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
 
             // if the form has passed through the validation
@@ -110,7 +117,9 @@ class Employees extends CI_Controller {
                     'nome' => $this->input->post('name'),
                     'funcao' => $this->input->post('function'),
                     'salario' => $this->input->post('salary'),
-                    'senha' => $this->input->post('password')
+                    'senha' => $this->input->post('password'),
+					'codigo' => $this->input->post('code'),
+					'telefone' => $this->input->post('phone')
                 );
 
                 // if the insert has returned true then we show the flash message
@@ -121,12 +130,16 @@ class Employees extends CI_Controller {
         // if we are updating, and the data did not pass trough the validation
         // the code below wel reload the current data
 
+		$full_query = $this->EmployeesModel->employee($id);
+		
         // employee data
-        $data['employee'] = $this->EmployeesModel->employee($id);
+        $data['employee'] = $full_query['employee'];
+		$data['employee_phone'] = $full_query['employee_phone'];
         $data['functions'] = $this->EmployeesModel->get_functions();
-
+		$data['phonecodes'] = $this->EmployeesModel->get_phonecodes();
+		
         // load the view
-        $data['main_content'] = 'employees/edit';
+        $data['main_content'] = 'employees/edit/' . $id;
         $this->load->view('includes/template', $data);
     }
 

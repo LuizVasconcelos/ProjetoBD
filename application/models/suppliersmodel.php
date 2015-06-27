@@ -13,7 +13,18 @@ class SuppliersModel extends CI_Model {
 		$this->db->from('fornecedor');
 		$this->db->where('cnpj', $id);
 		$query = $this->db->get();
-		return $query->result_array()[0];
+		
+		$this->db->select('*');
+		$this->db->from('telefone_fornecedor');
+		$this->db->where('cnpj', $id);
+		$query2 = $this->db->get();
+		
+		$full_query = array(
+			'supplier' => ($query->result_array()[0]),
+			'supplier_phone' => ($query2->result_array()[0])
+		);
+		
+		return $full_query;
     }
 
     public function get_suppliers($search_data = array())
@@ -26,16 +37,49 @@ class SuppliersModel extends CI_Model {
 		return $query->result_array();
     }
 
+	public function get_phonecodes()
+    {
+        $this->db->select('*');
+        $this->db->from('codigos_telefone');
+        return $this->db->get()->result_array();
+    }
+	
     function store($data)
     {
-		$insert = $this->db->insert('fornecedor', $data);
-	    return $insert;
+		$supplier_data = array(
+				'cnpj' => $data['cnpj'],
+				'nome' => $data['nome']
+		);
+	
+		$this->db->insert('fornecedor', $supplier_data);
+		
+		$phone_data = array(
+				'cnpj' => $data['cnpj'],
+				'codigo' => intval($data['codigo']),
+				'numero' => intval($data['telefone'])
+		);
+		
+	    return $this->db->insert('telefone_fornecedor', $phone_data);
 	}
 
     function update($id, $data)
     {
+		$supplier_data = array(
+				'cnpj' => $id,
+				'nome' => $data['nome']
+		);
+	
 		$this->db->where('cnpj', $id);
-		return $this->db->update('fornecedor', $data);
+		$this->db->update('fornecedor', $supplier_data);
+		
+		$phone_data = array(
+				'cnpj' => $data['cnpj'],
+				'codigo' => intval($data['codigo']),
+				'numero' => intval($data['telefone'])
+		);
+		
+		$this->db->where('cnpj', $id);
+		return $this->db->update('telefone_fornecedor', $phone_data);
 	}
 
     function delete($id)

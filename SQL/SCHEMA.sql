@@ -9,6 +9,7 @@ SET foreign_key_checks = 0;
 
 DROP TABLE IF EXISTS funcao CASCADE;
 DROP TABLE IF EXISTS funcionario CASCADE;
+DROP TABLE IF EXISTS codigos_telefone CASCADE;
 DROP TABLE IF EXISTS telefone_funcionario CASCADE;
 DROP TABLE IF EXISTS fornecedor CASCADE;
 DROP TABLE IF EXISTS telefone_fornecedor CASCADE;
@@ -35,12 +36,18 @@ CREATE TABLE funcionario(
 );
 
 
+CREATE TABLE codigos_telefone(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    codigo INT
+);
 
 CREATE TABLE telefone_funcionario(
 	cpf BIGINT,
+	codigo INT,
 	numero INT,
     PRIMARY KEY (cpf, numero),
-	FOREIGN KEY (cpf) REFERENCES funcionario(cpf)
+	FOREIGN KEY (cpf) REFERENCES funcionario(cpf),
+	FOREIGN KEY (codigo) REFERENCES codigos_telefone(id)
 );
 
 
@@ -54,9 +61,11 @@ CREATE TABLE fornecedor(
 
 CREATE TABLE telefone_fornecedor(
 	cnpj BIGINT,
+	codigo INT,
 	numero INT,
     PRIMARY KEY (cnpj, numero),
-	FOREIGN KEY (cnpj) REFERENCES fornecedor(cnpj)
+	FOREIGN KEY (cnpj) REFERENCES fornecedor(cnpj),
+	FOREIGN KEY (codigo) REFERENCES codigos_telefone(id)
 );
 
 

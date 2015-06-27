@@ -16,7 +16,18 @@ class EmployeesModel extends CI_Model {
         $this->db->from('funcionario');
         $this->db->where('cpf', $id);
         $query = $this->db->get();
-        return $query->result_array()[0];
+		
+		$this->db->select('*');
+        $this->db->from('telefone_funcionario');
+        $this->db->where('cpf', $id);
+		$query2 = $this->db->get();
+		
+		$full_query = array(
+			'employee' => ($query->result_array()[0]),
+			'employee_phone' => ($query2->result_array()[0])
+		);
+		
+        return $full_query;
     }
 
     public function get_employees($search_data = array())
@@ -36,15 +47,55 @@ class EmployeesModel extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    function store($data)
+	public function get_phonecodes()
     {
-	    return $this->db->insert('funcionario', $data);
+        $this->db->select('*');
+        $this->db->from('codigos_telefone');
+        return $this->db->get()->result_array();
+    }
+	
+    function store($data)
+    {	
+		$employee_data = array (
+				'cpf' => $data['cpf'],
+				'nome' => $data['nome'],
+				'funcao' => $data['funcao'],
+				'salario' => $data['salario'],
+				'senha' => $data['senha']
+		);
+		
+	    $this->db->insert('funcionario', $employee_data);
+		
+		$phone_data = array(
+				'cpf' => $data['cpf'],
+				'codigo' => intval($data['codigo']),
+				'numero' => intval($data['telefone'])
+		);
+		
+		return $this->db->insert('telefone_funcionario', $phone_data);
 	}
 
     function update($id, $data)
     {
+		$employee_data = array (
+				'cpf' => $id,
+				'nome' => $data['nome'],
+				'funcao' => $data['funcao'],
+				'salario' => $data['salario'],
+				'senha' => $data['senha']
+		);
+		
 		$this->db->where('cpf', $id);
-		return $this->db->update('funcionario', $data);
+		$this->db->update('funcionario', $employee_data);
+		
+		$phone_data = array (
+				'cpf' => $id,
+				'codigo' => intval($data['codigo']),
+				'numero' => intval($data['telefone'])
+		);
+		
+		$this->db->where('cpf', $id);
+		return $this->db->update('telefone_funcionario', $phone_data);
 	}
 
 	function delete($id)

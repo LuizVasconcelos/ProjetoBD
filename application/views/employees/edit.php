@@ -45,10 +45,14 @@
     foreach ($functions as $row)
         $options_functions[$row['id']] = $row['nome'];
 
+	$options_phonecodes = array('' => "Código");
+    foreach ($phonecodes as $row)
+        $options_phonecodes[$row['id']] = $row['codigo'];
+		
     // form validation
     echo validation_errors();
 
-    echo form_open('employees/update/' . $this->uri->segment(3), $attributes);
+    echo form_open('employees/edit/' . $this->uri->segment(3), $attributes);
     ?>
     <fieldset>
         <div class="control-group">
@@ -84,8 +88,17 @@
             <input type="password" name="password" readonly value="<?=$employee['senha']?>">
           </div>
         </div>
+		<?php
+            echo '<div class="control-group">';
+            echo '<label for="phone" class="control-label">Telefone</label>';
+            echo '<div class="controls">';
+            echo form_dropdown('code', $options_phonecodes, $employee_phone['codigo'], 'class="span2"');
+			echo '<input type="text" name="phone" maxlength="9" onkeypress="return event.charCode >= 48 && event.charCode <= 57"  value="<?=$employee_phone['telefone']?>">';
+            echo '</div>';
+            echo '</div>';
+        ?>
         <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Adicionar</button>
+            <button class="btn btn-primary" type="submit">Editar</button>
             <button class="btn" type="reset">Cancelar</button>
         </div>
     </fieldset>

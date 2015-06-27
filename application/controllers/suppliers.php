@@ -51,13 +51,17 @@ class Suppliers extends CI_Controller {
             // form validation
             $this->form_validation->set_rules('cnpj', 'cnpj', 'required|numeric');
             $this->form_validation->set_rules('name', 'name', 'required');
+			$this->form_validation->set_rules('code', 'code', 'required');
+			$this->form_validation->set_rules('phone', 'phone', 'required|numeric');
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
 
             if ($this->form_validation->run())
             {
                 $data_to_store = array(
                     'cnpj' => $this->input->post('cnpj'),
-                    'nome' => $this->input->post('name')
+                    'nome' => $this->input->post('name'),
+					'codigo' => $this->input->post('code'),
+					'telefone' => $this->input->post('phone')
                 );
 
                 $data['flash_message'] = $this->SuppliersModel->store($data_to_store);
@@ -65,6 +69,7 @@ class Suppliers extends CI_Controller {
         }
 
         //load the view
+		$data['phonecodes'] = $this->SuppliersModel->get_phonecodes();
         $data['main_content'] = 'suppliers/add';
         $this->load->view('includes/template', $data);
     }
@@ -81,13 +86,17 @@ class Suppliers extends CI_Controller {
             // form validation
             $this->form_validation->set_rules('cnpj', 'cnpj', 'required|numeric');
             $this->form_validation->set_rules('name', 'name', 'required');
+			$this->form_validation->set_rules('code', 'code', 'required');
+			$this->form_validation->set_rules('phone', 'phone', 'required|numeric');
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
 
             if ($this->form_validation->run())
             {
                 $data_to_store = array(
                     'cnpj' => $this->input->post('cnpj'),
-                    'nome' => $this->input->post('name')
+                    'nome' => $this->input->post('name'),
+					'codigo' => $this->input->post('code'),
+					'telefone' => $this->input->post('phone')
                 );
 
                 $data['flash_message'] = $this->SuppliersModel->update($id, $data_to_store);
@@ -98,10 +107,14 @@ class Suppliers extends CI_Controller {
         // the code below wel reload the current data
 
         // supplier data
-        $data['supplier'] = $this->SuppliersModel->supplier($id);
+        $full_query = $this->SuppliersModel->supplier($id);
 
         // load the view
-        $data['main_content'] = 'suppliers/edit';
+		$data['supplier'] = $full_query['supplier'];
+		$data['supplier_phone'] = $full_query['supplier_phone'];
+		$data['phonecodes'] = $this->SuppliersModel->get_phonecodes();
+		
+        $data['main_content'] = 'suppliers/edit/' . $id;
         $this->load->view('includes/template', $data);
     }
 

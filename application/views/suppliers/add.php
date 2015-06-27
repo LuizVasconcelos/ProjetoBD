@@ -41,7 +41,10 @@
 
     // form data
     $attributes = array('class' => 'form-horizontal', 'id' => '');
-
+	$options_phonecodes = array('' => "Código");
+    foreach ($phonecodes as $row)
+        $options_phonecodes[$row['id']] = $row['codigo'];
+	
     // form validation
     echo validation_errors();
 
@@ -60,6 +63,15 @@
             <input type="text" id="" name="name" value="<?=set_value('name')?>" >
           </div>
         </div>
+		<?php
+            echo '<div class="control-group">';
+            echo '<label for="phone" class="control-label">Telefone</label>';
+            echo '<div class="controls">';
+            echo form_dropdown('code', $options_phonecodes, set_value('code'), 'class="span2"');
+			echo '<input type="text" name="phone" maxlength="9" onkeypress="return event.charCode >= 48 && event.charCode <= 57">';
+            echo '</div>';
+            echo '</div>';
+        ?>
         <div class="form-actions">
             <button class="btn btn-primary" type="submit">Adicionar</button>
             <button class="btn" type="reset">Cancelar</button>
