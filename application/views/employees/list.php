@@ -76,7 +76,7 @@
                 echo '<td>' . $row['cpf'] . '</td>';
                 echo '<td>' . $row['nome'] . '</td>';
                 echo '<td>' . $row['funcao_nome'] . '</td>';
-                echo '<td>' . $row['salario'] . '</td>';
+                echo '<td>R$ ' . number_format($row['salario'], 2, ',', '') . '</td>';
 				#adicionar aqui os goddamns telefones
                 echo '<td class="crud-actions">
                   <a href="' . site_url() . 'employees/update/' . $row['cpf'] . '" class="btn btn-info">ver e editar</a>
