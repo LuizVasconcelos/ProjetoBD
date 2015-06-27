@@ -16,18 +16,16 @@ class EmployeesModel extends CI_Model {
         $this->db->from('funcionario');
         $this->db->where('cpf', $id);
         $query = $this->db->get();
-		
+	    return $query->result_array()[0];
+    }
+
+    public function phones($id)
+    {
 		$this->db->select('*');
         $this->db->from('telefone_funcionario');
         $this->db->where('cpf', $id);
-		$query2 = $this->db->get();
-		
-		$full_query = array(
-			'employee' => ($query->result_array()[0]),
-			'employee_phone' => ($query2->result_array()[0])
-		);
-		
-        return $full_query;
+		$query = $this->db->get();
+		return $query->result_array();
     }
 
     public function get_employees($search_data = array())
@@ -64,15 +62,19 @@ class EmployeesModel extends CI_Model {
 				'senha' => $data['senha']
 		);
 		
-	    $this->db->insert('funcionario', $employee_data);
-		
-		$phone_data = array(
+	    $ret = $this->db->insert('funcionario', $employee_data);
+        if (!$ret)
+            return false;
+
+        $phone_data = array();
+        foreach ($data['telefones'] as $phone)
+            $phone_data[] = array(
 				'cpf' => $data['cpf'],
-				'codigo' => intval($data['codigo']),
-				'numero' => intval($data['telefone'])
-		);
+				'codigo' => intval($phone[0]),
+				'numero' => intval($phone[1])
+            );
 		
-		return $this->db->insert('telefone_funcionario', $phone_data);
+	    return $this->db->insert_batch('telefone_funcionario', $phone_data);
 	}
 
     function update($id, $data)
@@ -87,15 +89,19 @@ class EmployeesModel extends CI_Model {
 		
 		$this->db->where('cpf', $id);
 		$this->db->update('funcionario', $employee_data);
+
+        $this->db->where('cpf', $id);
+        $this->db->delete('telefone_funcionario');
 		
-		$phone_data = array (
-				'cpf' => $id,
-				'codigo' => intval($data['codigo']),
-				'numero' => intval($data['telefone'])
-		);
+        $phone_data = array();
+        foreach ($data['telefones'] as $phone)
+            $phone_data[] = array(
+				'cpf' => $data['cpf'],
+				'codigo' => intval($phone[0]),
+				'numero' => intval($phone[1])
+            );
 		
-		$this->db->where('cpf', $id);
-		return $this->db->update('telefone_funcionario', $phone_data);
+	    return $this->db->insert_batch('telefone_funcionario', $phone_data);
 	}
 
 	function delete($id)

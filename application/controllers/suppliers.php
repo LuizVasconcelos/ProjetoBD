@@ -49,19 +49,25 @@ class Suppliers extends CI_Controller {
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             // form validation
-            $this->form_validation->set_rules('cnpj', 'cnpj', 'required|numeric');
-            $this->form_validation->set_rules('name', 'name', 'required');
-			$this->form_validation->set_rules('code', 'code', 'required');
-			$this->form_validation->set_rules('phone', 'phone', 'required|numeric');
+            $this->form_validation->set_rules('cnpj', 'CNPJ', 'required|numeric');
+            $this->form_validation->set_rules('name', 'Nome', 'required');
+			$this->form_validation->set_rules('code[]', 'DDD', 'required');
+			$this->form_validation->set_rules('phone[]', 'Telefone', 'required');
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+
+            $codes = $this->input->post('code');
+            $phones = $this->input->post('phone');
+            $numbers = array();
+            for ($i = 0; $i < count($codes); $i++)
+                if (!empty($codes[$i]) && !empty($phones[$i]))
+                    $numbers[] = array($codes[$i], $phones[$i]);
 
             if ($this->form_validation->run())
             {
                 $data_to_store = array(
                     'cnpj' => $this->input->post('cnpj'),
                     'nome' => $this->input->post('name'),
-					'codigo' => $this->input->post('code'),
-					'telefone' => $this->input->post('phone')
+					'telefones' => $numbers
                 );
 
                 $data['flash_message'] = $this->SuppliersModel->store($data_to_store);
@@ -84,19 +90,25 @@ class Suppliers extends CI_Controller {
         if ($this->input->server('REQUEST_METHOD') === 'POST')
         {
             // form validation
-            $this->form_validation->set_rules('cnpj', 'cnpj', 'required|numeric');
-            $this->form_validation->set_rules('name', 'name', 'required');
-			$this->form_validation->set_rules('code', 'code', 'required');
-			$this->form_validation->set_rules('phone', 'phone', 'required|numeric');
+            $this->form_validation->set_rules('cnpj', 'CNPJ', 'required|numeric');
+            $this->form_validation->set_rules('name', 'Nome', 'required');
+			$this->form_validation->set_rules('code', 'DDD', 'required');
+			$this->form_validation->set_rules('phone', 'Número', 'required');
             $this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+
+            $codes = $this->input->post('code');
+            $phones = $this->input->post('phone');
+            $numbers = array();
+            for ($i = 0; $i < count($codes); $i++)
+                if (!empty($codes[$i]) && !empty($phones[$i]))
+                    $numbers[] = array($codes[$i], $phones[$i]);
 
             if ($this->form_validation->run())
             {
                 $data_to_store = array(
                     'cnpj' => $this->input->post('cnpj'),
                     'nome' => $this->input->post('name'),
-					'codigo' => $this->input->post('code'),
-					'telefone' => $this->input->post('phone')
+					'telefones' => $numbers
                 );
 
                 $data['flash_message'] = $this->SuppliersModel->update($id, $data_to_store);
@@ -107,14 +119,12 @@ class Suppliers extends CI_Controller {
         // the code below wel reload the current data
 
         // supplier data
-        $full_query = $this->SuppliersModel->supplier($id);
-
-        // load the view
-		$data['supplier'] = $full_query['supplier'];
-		$data['supplier_phone'] = $full_query['supplier_phone'];
+		$data['supplier'] = $this->SuppliersModel->supplier($id);
+		$data['phones'] = $this->SuppliersModel->phones($id);
 		$data['phonecodes'] = $this->SuppliersModel->get_phonecodes();
 		
-        $data['main_content'] = 'suppliers/edit/' . $id;
+        // load the view
+        $data['main_content'] = 'suppliers/edit';
         $this->load->view('includes/template', $data);
     }
 

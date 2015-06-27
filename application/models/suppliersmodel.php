@@ -13,18 +13,16 @@ class SuppliersModel extends CI_Model {
 		$this->db->from('fornecedor');
 		$this->db->where('cnpj', $id);
 		$query = $this->db->get();
-		
+	    return $query->result_array()[0];
+    }
+
+    public function phones($id)
+    {
 		$this->db->select('*');
 		$this->db->from('telefone_fornecedor');
 		$this->db->where('cnpj', $id);
-		$query2 = $this->db->get();
-		
-		$full_query = array(
-			'supplier' => ($query->result_array()[0]),
-			'supplier_phone' => ($query2->result_array()[0])
-		);
-		
-		return $full_query;
+		$query = $this->db->get();
+        return $query->result_array();
     }
 
     public function get_suppliers($search_data = array())
@@ -51,15 +49,19 @@ class SuppliersModel extends CI_Model {
 				'nome' => $data['nome']
 		);
 	
-		$this->db->insert('fornecedor', $supplier_data);
+		$ret = $this->db->insert('fornecedor', $supplier_data);
+        if (!$ret)
+            return false;
 		
-		$phone_data = array(
+        $phone_data = array();
+        foreach ($data['telefones'] as $phone)
+            $phone_data[] = array(
 				'cnpj' => $data['cnpj'],
-				'codigo' => intval($data['codigo']),
-				'numero' => intval($data['telefone'])
-		);
+				'codigo' => intval($phone[0]),
+				'numero' => intval($phone[1])
+            );
 		
-	    return $this->db->insert('telefone_fornecedor', $phone_data);
+	    return $this->db->insert_batch('telefone_fornecedor', $phone_data);
 	}
 
     function update($id, $data)
@@ -70,16 +72,22 @@ class SuppliersModel extends CI_Model {
 		);
 	
 		$this->db->where('cnpj', $id);
-		$this->db->update('fornecedor', $supplier_data);
-		
-		$phone_data = array(
+        $ret = $this->db->update('fornecedor', $supplier_data);
+        if (!$ret)
+            return false;
+	    
+        $this->db->where('cnpj', $id);
+        $this->db->delete('telefone_fornecedor');
+
+        $phone_data = array();
+        foreach ($data['telefones'] as $phone)
+            $phone_data[] = array(
 				'cnpj' => $data['cnpj'],
-				'codigo' => intval($data['codigo']),
-				'numero' => intval($data['telefone'])
-		);
+				'codigo' => intval($phone[0]),
+				'numero' => intval($phone[1])
+            );
 		
-		$this->db->where('cnpj', $id);
-		return $this->db->update('telefone_fornecedor', $phone_data);
+	    return $this->db->insert_batch('telefone_fornecedor', $phone_data);
 	}
 
     function delete($id)

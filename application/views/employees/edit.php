@@ -45,14 +45,14 @@
     foreach ($functions as $row)
         $options_functions[$row['id']] = $row['nome'];
 
-	$options_phonecodes = array('' => "Código");
+	$options_phonecodes = array('' => "DDD");
     foreach ($phonecodes as $row)
         $options_phonecodes[$row['id']] = $row['codigo'];
 		
     // form validation
     echo validation_errors();
 
-    echo form_open('employees/edit/' . $this->uri->segment(3), $attributes);
+    echo form_open('employees/update/' . $this->uri->segment(3), $attributes);
     ?>
     <fieldset>
         <div class="control-group">
@@ -88,15 +88,23 @@
             <input type="password" name="password" readonly value="<?=$employee['senha']?>">
           </div>
         </div>
-		<?php
-            echo '<div class="control-group">';
-            echo '<label for="phone" class="control-label">Telefone</label>';
-            echo '<div class="controls">';
-            echo form_dropdown('code', $options_phonecodes, $employee_phone['codigo'], 'class="span2"');
-			echo '<input type="text" name="phone" maxlength="9" onkeypress="return event.charCode >= 48 && event.charCode <= 57"  value="<?=$employee_phone['telefone']?>">';
-            echo '</div>';
-            echo '</div>';
-        ?>
+        <div id="phones">
+    <?php foreach ($phones as $phone) : ?>
+            <div class="control-group">
+                <label for="phone" class="control-label">Telefone</label>
+                <div class="controls">
+                    <?=form_dropdown('code[]', $options_phonecodes, intval($phone['codigo']), 'class="span2"')?>
+                    <input type="text" name="phone[]" maxlength="9" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<?=$phone['numero']?>" />
+                </div>
+            </div>
+    <?php endforeach; ?>
+        </div>
+        <div class="control-group">
+            <label for="new-phone" class="control-label"></label>
+            <div class="controls">
+                <input type="button" name="new-phone" id="new-phone" class="btn" value="Adicionar telefone" />
+            </div>
+        </div>
         <div class="form-actions">
             <button class="btn btn-primary" type="submit">Editar</button>
             <button class="btn" type="reset">Cancelar</button>
@@ -104,3 +112,17 @@
     </fieldset>
     <?php echo form_close(); ?>
 </div>
+<script type="text/javascript">
+    $(function() {
+        $('#new-phone').click(function() {
+            var html = '<div class="control-group">' +
+                    '<label for="phone" class="control-label"></label>' +
+                    '<div class="controls">' +
+                    '<?=preg_replace('/\n/', '', form_dropdown('code[]', $options_phonecodes, '', 'class="span2"'))?>' +
+                    '<input type="text" name="phone[]" maxlength="9" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />' +
+                    '</div>' +
+                    '</div>';
+            $('#phones').append(html);
+        });
+    });
+</script>

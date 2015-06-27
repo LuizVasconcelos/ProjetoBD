@@ -7,6 +7,17 @@
   <link href="<?php echo base_url(); ?>assets/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
   <link href="<?php echo base_url(); ?>assets/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
   <link href="<?php echo base_url(); ?>assets/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css">
+  <script src="<?php echo base_url(); ?>assets/js/jquery-1.7.1.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/admin.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+      $(".datepicker").datepicker({
+          dateFormat: "dd/mm/yy"
+      })
+  });
+  </script>
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
