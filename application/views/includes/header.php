@@ -23,7 +23,7 @@
 	<div class="navbar navbar-fixed-top">
 	  <div class="navbar-inner">
 	    <div class="container">
-	      <a class="brand">ProjetoBD</a>
+	      <a class="brand">AdminGas</a>
 	      <ul class="nav">
             <li <?php if ($this->uri->segment(1) == 'cashflow') { echo 'class="active"'; } ?>>
               <a href="<?=base_url()?>cashflow">Movimentação</a>

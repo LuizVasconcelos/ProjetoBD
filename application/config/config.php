@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/projetobd';
+$config['base_url']	= 'http://localhost/AdminGas';
 
 /*
 |--------------------------------------------------------------------------
