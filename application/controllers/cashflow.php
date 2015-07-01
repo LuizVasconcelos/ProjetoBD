@@ -131,6 +131,7 @@ class Cashflow extends CI_Controller {
         // the code below wel reload the current data
 
         $data['cashflow'] = $this->CashflowModel->cashflow($id);
+        $data['products'] = $this->CashflowModel->products($id);
         $data['main_content'] = 'cashflow/edit';
         $this->load->view('includes/template', $data);
     }

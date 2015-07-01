@@ -37,6 +37,16 @@ class CashflowModel extends CI_Model {
         return $query->result_array()[0]['lucro("'.$initial.'", "'.$final.'")'];
     }
 
+    function products($id)
+    {
+		$this->db->select('em.qtd as quantidade, pe.nome, pe.preco');
+		$this->db->from('estoque_movimentacao em');
+        $this->db->join('produto_estoque pe', 'pe.id = em.id_produto');
+		$this->db->where('id_movimentacao', $id);
+		$query = $this->db->get();
+		return $query->result_array();
+    }
+
     function store($data)
     {
 		return $this->db->insert('movimentacao', $data);

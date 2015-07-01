@@ -87,4 +87,26 @@
         </div>
     </fieldset>
     <?php echo form_close(); ?>
+    <h3>Produtos</h3>
+    <br />
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th class="red header">Descrição</th>
+                <th class="yellow header">Preço Unit.</th>
+                <th class="green header">Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($products as $row)
+            {
+            echo '<tr>';
+            echo '<td>' . (empty($row['descricao']) ? $row['nome'] : $row['descricao']) . '</td>';
+            echo '<td>R$ ' . number_format($row['preco'], 2, ',', '') . '</td>';
+            echo '<td>' . $row['quantidade'] . '</td>';
+            }
+            ?>
+        </tbody>
+    </table>
 </div>
