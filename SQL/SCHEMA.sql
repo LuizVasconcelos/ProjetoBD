@@ -1,12 +1,6 @@
-#CREATE USER 'projetobd'@'localhost' IDENTIFIED BY 'projetobd';
-#GRANT ALL PRIVILEGES ON * . * TO 'projetobd'@'localhost';
-#FLUSH PRIVILEGES;
-
-#CREATE DATABASE IF NOT EXISTS projetobd;
-
 USE projetobd;
-SET foreign_key_checks = 0;
 
+SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS funcao CASCADE;
 DROP TABLE IF EXISTS funcionario CASCADE;
 DROP TABLE IF EXISTS codigos_telefone CASCADE;
@@ -17,9 +11,7 @@ DROP TABLE IF EXISTS produto_estoque CASCADE;
 DROP TABLE IF EXISTS fornecedor_produto CASCADE;
 DROP TABLE IF EXISTS movimentacao CASCADE;
 DROP TABLE IF EXISTS estoque_movimentacao CASCADE;
-
 SET foreign_key_checks = 1;
-
 
 CREATE TABLE funcao(
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -35,7 +27,6 @@ CREATE TABLE funcionario(
     FOREIGN KEY (funcao) REFERENCES funcao (id)
 );
 
-
 CREATE TABLE codigos_telefone(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     codigo INT
@@ -50,14 +41,10 @@ CREATE TABLE telefone_funcionario(
 	FOREIGN KEY (codigo) REFERENCES codigos_telefone(id)
 );
 
-
-
 CREATE TABLE fornecedor(
 	cnpj BIGINT PRIMARY KEY,
     nome VARCHAR(100)
 );
-
-
 
 CREATE TABLE telefone_fornecedor(
 	cnpj BIGINT,
@@ -78,8 +65,6 @@ CREATE TABLE produto_estoque(
     preco FLOAT
 );
 
-
-
 CREATE TABLE fornecedor_produto(
 	id INT,
     cnpj BIGINT,
@@ -87,8 +72,6 @@ CREATE TABLE fornecedor_produto(
     FOREIGN KEY (cnpj) REFERENCES fornecedor(cnpj),
     FOREIGN KEY (id) REFERENCES produto_estoque(id)
 );
-
-
 
 CREATE TABLE movimentacao(
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -99,8 +82,6 @@ CREATE TABLE movimentacao(
 	cpf BIGINT,
 	FOREIGN KEY (cpf) REFERENCES funcionario(cpf)
 );
-
-
 
 CREATE TABLE estoque_movimentacao(
 	id_produto INT,
