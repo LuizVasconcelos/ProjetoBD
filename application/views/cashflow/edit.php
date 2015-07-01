@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button class="btn btn-primary" type="submit">Adicionar</button>
+                <button class="btn btn-primary" type="submit">Atualizar</button>
                 <button class="btn" type="reset">Cancelar</button>
             </div>
         </div>
